@@ -1,0 +1,36 @@
+- hosts: all 
+  become: yes 
+  gather_facts: no
+  vars_files:
+   - secrets/vault.yml
+  tasks:
+   # START VM DEPLOY ON LOCALHOST
+    - name: start deploy tasks
+      include_role:
+        name: vm-deploy 
+        apply:
+          delegate_to: localhost
+      when: deploy | default(true) 
+
+    # START VM DELETION ON LOCALHOST
+    - name: delete inactive VMs
+      include_role:
+        name: vm-cleanup
+        apply:
+          delegate_to: localhost
+      when: deploy | default(true)
+
+    - name: remove stopped machines from play 
+      ansible.builtin.meta: end_host
+      when: 
+      - state is defined 
+      - state == "stopped"
+
+    - name: gather facts
+      setup:
+
+    # INSTALL KUBERNETES CORE ON KUBERNETES NODES 
+    - name: install kubernetes core
+      include_role:
+        name: kubernetes-core
+      when: kubernetes is defined 

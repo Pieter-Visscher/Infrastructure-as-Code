@@ -1,0 +1,88 @@
+- name: add overlay module
+  community.general.modprobe:
+    name: overlay
+    state: present
+    persistent: present
+
+- name: add br_netfilter module
+  community.general.modprobe:
+    name: br_netfilter
+    state: present
+    persistent: present
+
+- name: net.bridge.bridge-nf-call-iptables = 1 to sysctl 
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: 1
+    state: present
+    sysctl_file: /etc/sysctl.d/k8s.conf
+
+- name: net.bridge.bridge-nf-call-ip6tables = 1 to sysctl
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-ip6tables
+    value: 1
+    state: present
+    sysctl_file: /etc/sysctl.d/k8s.conf
+
+- name: net.ipv4.ip_forward = 1 to sysctl
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    state: present
+    sysctl_file: /etc/sysctl.d/k8s.conf
+
+- name: install cri-o key
+  ansible.builtin.apt_key:
+    url: https://pkgs.k8s.io/addons:/cri-o:/stable:/{{ release }}/deb/Release.key 
+    keyring: /etc/apt/keyrings/cri-o-apt-keyring.gpg 
+    state: present
+
+- name: install cri-o repository
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/stable:/{{ release }}/deb/ / 
+    filename: cri-o 
+
+- name: install cri-o
+  ansible.builtin.apt:
+    pkg:
+    - cri-o
+    - cri-tools
+    - containernetworking-plugins
+
+- name: hold crio
+  ansible.builtin.dpkg_selections:
+    name: cri-o
+    selection: hold
+
+- name: set cri-o configuration
+  ansible.builtin.copy:
+    src: 'files/crio.template.conf'
+    dest: '/etc/crio/crio.conf'
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: delete default crio.conf from registries.conf.d
+  ansible.builtin.file:
+    path: /etc/containers/registries.conf.d/crio.conf
+    state: absent
+
+- name: place modified crio.conf in registries.conf.d
+  ansible.builtin.copy:
+    src: 'files/containers.crio.template.conf'
+    dest: '/etc/containers/registries.conf.d/crio.conf'
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: set pod cidr
+  ansible.builtin.replace:
+    path: /etc/cni/net.d/11-crio-ipv4-bridge.conflist
+    regexp: '10.85.0.0/16'
+    replace: '{{ pod_cidr }}'
+
+- name: enable and start cri-o
+  ansible.builtin.systemd_service:
+    name: crio
+    state: started
+    enabled: true

@@ -1,0 +1,72 @@
+#  - name: debug vars
+#    ansible.builtin.debug:
+#      msg: 
+#      - "{{ cpu | default(4) }}"
+#      - "{{ memory | default(4096) }}"
+#      - "{{ disk | default(20) }}"
+#      - "{{ vlan }}"
+#      - "{{ id }}"
+#      - "{{ node_name }}"
+#      - "{{  inventory_hostname }}"
+#      - "{{ vlan }}{{ id }}"
+
+  - name: Create a full clone of template
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ password }}"
+      api_host: "{{ node_name }}"
+      clone: template
+      vmid: "{{ template }}" 
+      newid: "{{ vlan }}{{ id }}"
+      name: "{{ inventory_hostname }}"
+      storage: "{{ storage }}"
+      format: "{{ format }}"
+      timeout: 120
+
+  - name: modify vm to specified specs 
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ vlan }}{{ id }}"
+      cores: "{{ cpu | default(4) }}"
+      memory: "{{ memory | default(4096) }}"
+      ipconfig: 
+        ipconfig0: "ip={{ subnet }}.{{ vlan }}.{{ id }}/{{ cidr }},gw={{ subnet }}.{{ vlan }}.{{ gateway }}"
+      update: true 
+
+  - name: set vlan tag on net_0
+    community.general.proxmox_nic:
+      api_user: "{{ user }}"
+      api_password: "{{ password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ vlan }}{{ id }}"
+      interface: net0
+      bridge: "{{ bridge }}"
+      tag: "{{ vlan }}"
+
+  - name: Grow existing disk
+    community.general.proxmox_disk:
+      api_host: "{{ node_name }}" 
+      api_user: "{{ user }}"
+      api_password: "{{ password }}"
+      vmid: "{{ vlan }}{{ id }}" 
+      disk: scsi0
+      size: "{{ disk | default(20)}}G"
+      state: resized
+ 
+  - name: change state of the VM 
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ vlan }}{{ id }}"
+      state: "{{ state | default('started') }}"
+
+  - name: create DNS record for VM in /etc/hosts
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      line: "{{ subnet }}.{{ vlan }}.{{ id }} {{ inventory_hostname }}"

@@ -1,0 +1,84 @@
+  - name: get all VMs on node
+    community.general.proxmox_vm_info:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ password }}"
+      api_host: "{{ node_name }}"
+      type: qemu
+    run_once: true
+    register: proxmox_vms
+
+  - name: filter json to vmid
+    ansible.builtin.set_fact:
+      vmid_list: "{{ vmid_list|default([]) + [item|string] }}" 
+      var: item 
+    loop: "{{ proxmox_vms | community.general.json_query('proxmox_vms[*].vmid') }}"
+    run_once: true
+
+  - name: filter json to name 
+    ansible.builtin.set_fact:
+      name_list: "{{ name_list|default([]) + [item|string] }}" 
+      var: item 
+    loop: "{{ proxmox_vms | community.general.json_query('proxmox_vms[*].name') }}"
+    run_once: true
+
+  - name: get VMIDs defined in inventory 
+    ansible.builtin.set_fact:
+      known_ids: "{{ known_ids|default([]) + [hostvars[item]['vlan']|string+hostvars[item]['id']|string]}}"
+    loop: "{{ groups['all'] }}"
+    when: hostvars[item]['deploy'] | default(true)
+    run_once: true
+
+  - name: get names defined in inventory 
+    ansible.builtin.set_fact:
+      known_names: "{{ known_names|default([]) + [item] }}"
+    loop: "{{ groups['all'] }}"
+    when: hostvars[item]['deploy'] | default(true)
+    run_once: true
+
+  - name: get VMID selection for deletion 
+    ansible.builtin.set_fact:
+      vmid_deleted: "{{ vmid_list | symmetric_difference(known_ids) }}"
+    run_once: true
+  
+  - name: get VM name selection for deletion 
+    ansible.builtin.set_fact:
+      names_deleted: "{{ name_list | difference(known_names) }}"
+    run_once: true
+
+#  - name: debug deleted_vms_proxmox
+#    ansible.builtin.debug:
+#      msg: 
+#      - "{{ names_deleted}}"
+#      - "{{ vmid_deleted }}"
+#    run_once: true
+
+  - name: stop VM prompted for deletion
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ item }}"
+      state: stopped 
+    loop: "{{ vmid_deleted }}"
+    run_once: true
+
+  - name: remove VM prompted for deletion
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ item }}"
+      state: absent 
+    loop: "{{ vmid_deleted }}"
+    run_once: true
+
+  - name: delete DNS record for VM in /etc/hosts
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      regexp: '{{ item }}'
+      state: absent
+    loop: "{{ names_deleted }}"
+    run_once: true

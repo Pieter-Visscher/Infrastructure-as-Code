@@ -1,0 +1,2 @@
+- import_tasks: 0_install_kubernetes.yml
+- import_tasks: 1_install_crio.yml
