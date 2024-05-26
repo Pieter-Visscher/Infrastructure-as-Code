@@ -1,0 +1,24 @@
+automatic provision kubernetes cluster
+
+redo base image
+	new clean image
+	use ansible to configure ansible user if possible
+	use ansible to configure root?
+	install basic applications 
+	automatically renew image every month to prevent long boot times dueue to autoupdate.
+
+patch management via ansible?
+
+automatically provision zabbix servers
+automatically provision haproxy?
+	manage backends and ACL via ansible?
+automatically provision nginx vhosts?
+
+automatically provision docker
+
+automatically provision mysql or mariadb or both
+
+devide main with tags and make different cronjobs / runners to prevent long execution
+
+hostvars: role: each role must be unqiue. webserver zabbix-proxy zabbix-server database control-plane worker haproxy etc
+possible solution: no unique roles but deploy software based on inventory hostgroups and specific component described in role.
