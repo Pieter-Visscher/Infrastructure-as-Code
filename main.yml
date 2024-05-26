@@ -5,7 +5,7 @@
    - secrets/vault.yml
   tasks:
    # START VM DEPLOY ON LOCALHOST
-    - name: start deploy tasks
+    - name: include vm deploy role 
       include_role:
         name: vm-deploy 
         apply:
@@ -13,7 +13,7 @@
       when: deploy | default(true) 
 
     # START VM DELETION ON LOCALHOST
-    - name: delete inactive VMs
+    - name: include vm-cleanup role 
       include_role:
         name: vm-cleanup
         apply:
@@ -28,6 +28,14 @@
 
     - name: gather facts
       setup:
+
+    # INSTALL ZABBIX AGENT
+    - name: include zabbix role 
+      include_role:
+        name: zabbix 
+      when: 
+      - zabbix is defined 
+      - zabbix == "enabled"
 
     # INSTALL KUBERNETES CORE ON KUBERNETES NODES 
     - name: install kubernetes core

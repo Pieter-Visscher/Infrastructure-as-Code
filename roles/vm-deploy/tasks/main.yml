@@ -1,14 +1,14 @@
-#  - name: debug vars
-#    ansible.builtin.debug:
-#      msg: 
-#      - "{{ cpu | default(4) }}"
-#      - "{{ memory | default(4096) }}"
-#      - "{{ disk | default(20) }}"
-#      - "{{ vlan }}"
-#      - "{{ id }}"
-#      - "{{ node_name }}"
-#      - "{{  inventory_hostname }}"
-#      - "{{ vlan }}{{ id }}"
+  - name: debug vars
+    ansible.builtin.debug:
+      msg: 
+      - "{{ cpu | default(4) }}"
+      - "{{ memory | default(4096) }}"
+      - "{{ disk | default(20) }}"
+      - "{{ vlan }}"
+      - "{{ id }}"
+      - "{{ node_name }}"
+      - "{{  inventory_hostname }}"
+      - "{{ vlan }}{{ id }}"
 
   - name: Create a full clone of template
     community.general.proxmox_kvm:

@@ -1,0 +1,26 @@
+#- name: download zabbix repository
+#  ansible.builtin.get_url:
+#    url: https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian12_all.deb
+#    dest: /root/zabbix-release.deb
+#    mode: 0660
+    
+#- name: install zabbix repository
+#  ansible.builtin.apt:
+#    deb: /root/zabbix-release.deb
+- name: install repository
+  ansible.builtin.apt:
+    deb: https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian12_all.deb
+
+- name: update repositories
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: install agent
+  ansible.builtin.apt:
+    name: zabbix-agent2
+    state: latest 
+
+- name: enable agent
+  ansible.builtin.systemd_service:
+    name: zabbix-agent2
+    enabled: true

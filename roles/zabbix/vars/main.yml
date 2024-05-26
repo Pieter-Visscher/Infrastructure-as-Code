@@ -1,0 +1,5 @@
+---
+  net1: 10.0.0.0/16
+  net2: 10.1.0.0/16
+  proxy1: zbx-proxy-zoetermeer.pvisscher.nl
+  proxy2: zbx-proxy-htz01.pvisscher.nl

@@ -1,0 +1,33 @@
+- name: select location 1
+  ansible.builtin.set_fact:
+    location1: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] is ansible.utils.in_network net1 }}"
+
+- name: select location 2
+  ansible.builtin.set_fact:
+    location2: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] is ansible.utils.in_network net2 }}"
+
+- name: set location 1
+  ansible.builtin.replace:
+    path: /etc/zabbix/zabbix_agent2.conf
+    regexp: '127.0.0.1'
+    replace: '{{ proxy1 }}'
+  when: location1
+
+- name: set location 2
+  ansible.builtin.replace:
+    path: /etc/zabbix/zabbix_agent2.conf
+    regexp: '127.0.0.1'
+    replace: '{{ proxy2 }}'
+  when: location2
+
+- ansible.builtin.lineinfile:
+    path: /etc/zabbix/zabbix_agent2.conf
+    regexp: 'Hostname=Zabbix\ server'
+    state: absent
+  
+- name: restart agent
+  ansible.builtin.systemd_service:
+    name: zabbix-agent2
+    state: restarted
+
+

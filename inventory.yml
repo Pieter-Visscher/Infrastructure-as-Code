@@ -30,9 +30,9 @@ ungrouped:         #
       id: 10
 
     kube-storage-00:
-      disk: 30
       vlan: 103
       id: 30
+      disk: 30
 
     steam:
       vlan: 102
@@ -49,20 +49,25 @@ ungrouped:         #
       disk: 60
       state: stopped
 
+    zabbix-test-host:
+      vlan: 100
+      id: 11
+      zabbix: enabled 
+
 ####################
 zabbix:            #
   hosts:           #
 ####################
 
     zbx-proxy-htz01.pvisscher.nl:
-      disk: 30
       vlan: 50
       id: 11
+      disk: 30
 
     zbx-server-htz01:
-      disk: 100
       vlan: 50
       id: 12
+      disk: 100
 
 
 ####################
@@ -71,9 +76,9 @@ webservers:        #
 ####################
 
     bookstack:
-      disk: 50
       vlan: 100
       id: 12 
+      disk: 50
 
     web01:
       vlan: 100
@@ -136,9 +141,9 @@ docker:            #
 ####################
 
     docker-repo.pvisscher.nl:
-      disk: 30
       vlan: 103
       id: 05
+      disk: 30
 
 ####################
 nick:              #
@@ -146,21 +151,21 @@ nick:              #
 ####################
 
     NicksFuckUp:
-      id: 11
       vlan: 101
+      id: 11
       state: stopped
 
     NicksWebServer:
-      id: 12
       vlan: 101
+      id: 12
       state: stopped
 
     nick-mail:
-      id: 13
       vlan: 101
+      id: 13
       state: stopped
 
     nick-mail-test:
-      id: 14
       vlan: 101
+      id: 14
       state: stopped

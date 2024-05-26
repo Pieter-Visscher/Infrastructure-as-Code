@@ -1,0 +1,3 @@
+    - import_tasks: 0_install_agent.yml
+    - import_tasks: 1_configure_agent.yml
+
