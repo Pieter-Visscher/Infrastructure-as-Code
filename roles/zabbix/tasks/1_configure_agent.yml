@@ -12,6 +12,7 @@
     regexp: '127.0.0.1'
     replace: '{{ proxy1 }}'
   when: location1
+  register: configState 
 
 - name: set location 2
   ansible.builtin.replace:
@@ -19,6 +20,7 @@
     regexp: '127.0.0.1'
     replace: '{{ proxy2 }}'
   when: location2
+  register: configState 
 
 - ansible.builtin.lineinfile:
     path: /etc/zabbix/zabbix_agent2.conf
@@ -29,5 +31,6 @@
   ansible.builtin.systemd_service:
     name: zabbix-agent2
     state: restarted
+  when: configState.changed
 
 
