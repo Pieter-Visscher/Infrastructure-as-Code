@@ -28,6 +28,7 @@ ungrouped:         #
     wireguard:
       vlan: 99
       id: 10
+      zabbix: enabled
 
     kube-storage-00:
       vlan: 103
