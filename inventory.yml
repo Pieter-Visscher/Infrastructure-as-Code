@@ -50,6 +50,10 @@ ungrouped:         #
       id: 11
       zabbix: enabled 
 
+    awx-inventory-sync-test:
+      vlan: 100
+      id: 20
+
 ####################
 zabbix:            #
   hosts:           #
@@ -118,16 +122,19 @@ kubernetes:        #
       vlan: 103
       id: 20
       disk: 50
+      memory: 8192
 
     kube-worker-01:
       vlan: 103
       id: 21
       disk: 50
+      memory: 8192
 
     kube-worker-02:
       vlan: 103
       id: 22
       disk: 50
+      memory: 8192
 
     test-k8s-node-00:
       vlan: 103
