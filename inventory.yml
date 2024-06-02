@@ -50,10 +50,6 @@ ungrouped:         #
       id: 11
       zabbix: enabled 
 
-    awx-inventory-sync-test:
-      vlan: 100
-      id: 20
-
 ####################
 zabbix:            #
   hosts:           #
