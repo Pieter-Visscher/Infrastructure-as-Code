@@ -5,4 +5,4 @@ subnet: 10.1
 cidr: 24
 gateway: 1
 bridge: vmbr0
-template: 9999
+template: 9998

@@ -6,19 +6,17 @@
   tasks:
    # START VM DEPLOY ON LOCALHOST
     - name: include vm deploy role 
-      include_role:
+      import_role:
         name: vm-deploy 
-        apply:
-          delegate_to: localhost
+      delegate_to: localhost
       when: deploy | default(true) 
       tags: deploy
 
     # START VM DELETION ON LOCALHOST
     - name: include vm-cleanup role 
-      include_role:
+      import_role:
         name: vm-cleanup
-        apply:
-          delegate_to: localhost
+      delegate_to: localhost
       when: deploy | default(true)
       tags: deploy 
 
@@ -28,6 +26,12 @@
       - state is defined 
       - state == "stopped"
       tags: always
+
+    # Prepare VMs 
+    - name: prep VM 
+      import_role:
+        name: vm-config
+      tags: test 
 
     - name: gather facts
       setup:
@@ -44,7 +48,8 @@
 
     # INSTALL KUBERNETES CORE ON KUBERNETES NODES 
     - name: install kubernetes core
-      include_role:
+      import_role:
         name: kubernetes-core
       when: kubernetes is defined 
       tags: kubernetes
+

@@ -18,12 +18,17 @@
 ungrouped:         #
   hosts:           #
 ####################
-    
+
 #    OPNsense:
 #      cpu: 8
 #      memory: 4096
 #      disk: 32
 #      deploy: false
+
+    kube-bck:
+      vlan: 103
+      id: 6
+      disk: 50
 
     wireguard:
       vlan: 99
@@ -49,6 +54,10 @@ ungrouped:         #
       vlan: 100
       id: 11
       zabbix: enabled 
+
+    deploy-test:
+      vlan: 100
+      id: 21
 
 ####################
 zabbix:            #

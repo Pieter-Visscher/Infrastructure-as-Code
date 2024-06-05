@@ -1,8 +1,8 @@
 
 -redo base image
-	new clean image
-	use ansible to configure ansible user if possible
-	use ansible to configure root?
+	new clean image - done
+	use cloudinit to configure ansible user
+	use ansible to configure root
 	install basic applications 
 	automatically renew image every month to prevent long boot times dueue to autoupdate.
 

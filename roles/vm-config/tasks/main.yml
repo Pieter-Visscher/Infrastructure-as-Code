@@ -1,0 +1,38 @@
+- name: change root password
+  ansible.builtin.user:
+    name: root
+    update_password: always
+    password: "{{ root_password|password_hash('sha512') }}"
+
+- name: lock down ssh-access 
+  ansible.builtin.blockinfile:
+    path: /etc/ssh/sshd_config
+    block: |
+      Match User ansible 
+              PasswordAuthentication no
+      Allow Users ansible@ "{{ mgmt_ip1 }}" ansible@ "{{ mgmt_ip2 }}"
+      PermitRootLogin prohibit-password
+      Allow Users root@ "{{ mgmt_ip1 }}" root@ "{{ mgmt_ip3 }}"
+  register: sshConfigState
+
+- name: restart sshd
+  ansible.builtin.systemd_service:
+    name: ssh.service
+    state: restarted
+  when: sshConfigState.changed
+
+- name: apt update 
+  ansible.builtin.apt:
+    update_cache: yes 
+
+- name: install applications
+  ansible.builtin.apt:
+    pkg:
+    - tree
+    - unzip
+    - git
+    - htop
+    - net-tools 
+    - ncdu
+    - lsof
+    - mlocate
