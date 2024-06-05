@@ -59,6 +59,10 @@ ungrouped:         #
       vlan: 100
       id: 21
 
+    deploy-test2:
+      vlan: 100
+      id: 22
+
 ####################
 zabbix:            #
   hosts:           #

@@ -4,15 +4,28 @@
     update_password: always
     password: "{{ root_password|password_hash('sha512') }}"
 
+- name: enable root SSH through cloud-init
+  ansible.builtin.lineinfile:
+    path: /etc/cloud/cloud.cfg
+    regexp: '^disable_root'
+    line: "disable_root: false"
+  register: cloudInitConfigState
+
+- name: regenerate cloud init
+  ansible.builtin.command:
+    cmd: /usr/bin/cloud-init clean
+  when: cloudInitConfigState.changed
+
 - name: lock down ssh-access 
   ansible.builtin.blockinfile:
     path: /etc/ssh/sshd_config
     block: |
       Match User ansible 
               PasswordAuthentication no
-      AllowUsers ansible@{{ mgmt_ip1 }} ansible@{{ mgmt_ip2 }}
+              AllowUsers ansible@{{ mgmt_ip1 }} ansible@{{ mgmt_ip2 }}
       PermitRootLogin prohibit-password
-      AllowUsers root@{{ mgmt_ip1 }} root@{{ mgmt_ip3 }}
+      Match User root
+              AllowUsers root@{{ mgmt_ip1 }} root@{{ mgmt_ip3 }}
   register: sshConfigState
 
 - name: restart sshd
@@ -36,3 +49,8 @@
     - ncdu
     - lsof
     - mlocate
+
+- name: reboot
+  ansible.builtin.reboot:
+    reboot_timeout: 300
+  when: cloudInitConfigState.changed
