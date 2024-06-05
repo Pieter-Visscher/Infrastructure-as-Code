@@ -10,9 +10,9 @@
     block: |
       Match User ansible 
               PasswordAuthentication no
-      Allow Users ansible@ "{{ mgmt_ip1 }}" ansible@ "{{ mgmt_ip2 }}"
+      AllowUsers ansible@{{ mgmt_ip1 }} ansible@{{ mgmt_ip2 }}
       PermitRootLogin prohibit-password
-      Allow Users root@ "{{ mgmt_ip1 }}" root@ "{{ mgmt_ip3 }}"
+      AllowUsers root@{{ mgmt_ip1 }} root@{{ mgmt_ip3 }}
   register: sshConfigState
 
 - name: restart sshd
