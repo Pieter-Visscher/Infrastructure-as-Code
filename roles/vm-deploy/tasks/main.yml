@@ -9,6 +9,7 @@
 #      - "{{ node_name }}"
 #      - "{{  inventory_hostname }}"
 #      - "{{ vlan }}{{ id }}"
+
   - name: gather public keys
     ansible.builtin.assemble:
       src: "templates/ssh/"
@@ -75,6 +76,12 @@
       api_host: "{{ node_name }}"
       vmid: "{{ vlan }}{{ id }}"
       state: "{{ state | default('started') }}"
+    register: newState
+
+  - name: wait if power state has changed
+    ansible.builtin.wait_for:
+      timeout: 60 
+    when: newState.changed
 
   - name: create DNS record for VM in /etc/hosts
     ansible.builtin.lineinfile:
