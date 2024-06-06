@@ -43,7 +43,7 @@
       ipconfig: 
         ipconfig0: "ip={{ subnet }}.{{ vlan }}.{{ id }}/{{ cidr }},gw={{ subnet }}.{{ vlan }}.{{ gateway }}"
       ciuser: "ansible"
-      cipasssword: "{{ ansible_password }}"
+      cipassword: "{{ ansible_password }}"
       sshkeys: "{{ lookup('ansible.builtin.file','/tmp/ssh_keys') }}"
       update: true 
 
