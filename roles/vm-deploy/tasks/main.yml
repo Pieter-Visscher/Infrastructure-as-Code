@@ -1,14 +1,21 @@
-  - name: debug vars
-    ansible.builtin.debug:
-      msg: 
-      - "{{ cpu | default(4) }}"
-      - "{{ memory | default(4096) }}"
-      - "{{ disk | default(20) }}"
-      - "{{ vlan }}"
-      - "{{ id }}"
-      - "{{ node_name }}"
-      - "{{  inventory_hostname }}"
-      - "{{ vlan }}{{ id }}"
+#  - name: debug vars
+#    ansible.builtin.debug:
+#      msg: 
+#      - "{{ cpu | default(4) }}"
+#      - "{{ memory | default(4096) }}"
+#      - "{{ disk | default(20) }}"
+#      - "{{ vlan }}"
+#      - "{{ id }}"
+#      - "{{ node_name }}"
+#      - "{{  inventory_hostname }}"
+#      - "{{ vlan }}{{ id }}"
+  - name: gather public keys
+    ansible.builtin.assemble:
+      src: "templates/ssh/"
+      dest: "/tmp/ssh_keys"
+      mode: 0644
+    become: false
+    run_once: true
 
   - name: Create a full clone of template
     community.general.proxmox_kvm:
@@ -35,6 +42,9 @@
       memory: "{{ memory | default(4096) }}"
       ipconfig: 
         ipconfig0: "ip={{ subnet }}.{{ vlan }}.{{ id }}/{{ cidr }},gw={{ subnet }}.{{ vlan }}.{{ gateway }}"
+      ciuser: "ansible"
+      cipasssword: "{{ ansible_password }}"
+      sshkeys: "{{ lookup('ansible.builtin.file','/tmp/ssh_keys') }}"
       update: true 
 
   - name: set vlan tag on net_0
@@ -56,7 +66,7 @@
       disk: scsi0
       size: "{{ disk | default(20)}}G"
       state: resized
- 
+
   - name: change state of the VM 
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
