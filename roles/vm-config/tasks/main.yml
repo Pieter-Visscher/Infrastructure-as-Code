@@ -5,11 +5,6 @@
     password: "{{ root_password|password_hash('sha512') }}"
   when: custom_root_password is undefined
 
-- name: debug custom root password
-  ansible.builtin.debug:
-    msg: "{{ custom_root_password }}"
-  when: custom_root_password is defined
-
 - name: set custom root password
   ansible.builtin.user:
     name: root
