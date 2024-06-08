@@ -2,7 +2,7 @@
     community.general.proxmox_vm_info:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
-      api_password: "{{ password }}"
+      api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}"
       type: qemu
     run_once: true
@@ -46,18 +46,18 @@
       names_deleted: "{{ name_list | difference(known_names) }}"
     run_once: true
 
-#  - name: debug deleted_vms_proxmox
-#    ansible.builtin.debug:
-#      msg: 
-#      - "{{ names_deleted}}"
-#      - "{{ vmid_deleted }}"
-#    run_once: true
+  - name: debug deleted_vms_proxmox
+    ansible.builtin.debug:
+      msg: 
+      - "{{ names_deleted}}"
+      - "{{ vmid_deleted }}"
+    run_once: true
 
   - name: stop VM prompted for deletion
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
-      api_password: "{{ password }}"
+      api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}"
       vmid: "{{ item }}"
       state: stopped 
@@ -68,7 +68,7 @@
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
-      api_password: "{{ password }}"
+      api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}"
       vmid: "{{ item }}"
       state: absent 
@@ -80,5 +80,6 @@
       path: /etc/hosts
       regexp: '{{ item }}'
       state: absent
+    become: true
     loop: "{{ names_deleted }}"
     run_once: true

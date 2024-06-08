@@ -22,7 +22,7 @@
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
-      api_password: "{{ password }}"
+      api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}"
       clone: template
       vmid: "{{ template }}" 
@@ -36,7 +36,7 @@
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
-      api_password: "{{ password }}"
+      api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}"
       vmid: "{{ vlan }}{{ id }}"
       cores: "{{ cpu | default(4) }}"
@@ -51,7 +51,7 @@
   - name: set vlan tag on net_0
     community.general.proxmox_nic:
       api_user: "{{ user }}"
-      api_password: "{{ password }}"
+      api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}"
       vmid: "{{ vlan }}{{ id }}"
       interface: net0
@@ -62,7 +62,7 @@
     community.general.proxmox_disk:
       api_host: "{{ node_name }}" 
       api_user: "{{ user }}"
-      api_password: "{{ password }}"
+      api_password: "{{ ansible_password }}"
       vmid: "{{ vlan }}{{ id }}" 
       disk: scsi0
       size: "{{ disk | default(20)}}G"
@@ -72,7 +72,7 @@
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
-      api_password: "{{ password }}"
+      api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}"
       vmid: "{{ vlan }}{{ id }}"
       state: "{{ state | default('started') }}"
@@ -87,3 +87,4 @@
     ansible.builtin.lineinfile:
       path: /etc/hosts
       line: "{{ subnet }}.{{ vlan }}.{{ id }} {{ inventory_hostname }}"
+    become: true

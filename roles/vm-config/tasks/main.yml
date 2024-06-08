@@ -1,8 +1,21 @@
-- name: change root password
+- name: set default root password
   ansible.builtin.user:
     name: root
     update_password: always
     password: "{{ root_password|password_hash('sha512') }}"
+  when: custom_root_password is undefined
+
+- name: debug custom root password
+  ansible.builtin.debug:
+    msg: "{{ custom_root_password }}"
+  when: custom_root_password is defined
+
+- name: set custom root password
+  ansible.builtin.user:
+    name: root
+    update_password: always
+    password: "{{ custom_root_password|password_hash('sha512') }}"
+  when: custom_root_password is defined
 
 - name: enable root SSH through cloud-init
   ansible.builtin.lineinfile:

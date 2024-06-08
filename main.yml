@@ -8,6 +8,7 @@
     - name: include vm deploy role 
       import_role:
         name: vm-deploy 
+      become: false
       delegate_to: localhost
       when: deploy | default(true) 
       tags: deploy
@@ -16,6 +17,7 @@
     - name: include vm-cleanup role 
       import_role:
         name: vm-cleanup
+      become: false
       delegate_to: localhost
       when: deploy | default(true)
       tags: deploy 
@@ -27,11 +29,11 @@
       - state == "stopped"
       tags: always
 
-    # Prepare VMs 
+    # PREPARE VMS 
     - name: prep VM 
       import_role:
         name: vm-config
-      tags: test 
+      tags: deploy 
 
     - name: gather facts
       setup:
