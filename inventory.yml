@@ -35,6 +35,10 @@ ungrouped:         #
       id: 10
       zabbix: enabled
 
+    awx-receptor:
+      vlan: 50
+      id: 13
+
     steam:
       vlan: 102
       id: 10
