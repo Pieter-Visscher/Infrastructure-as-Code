@@ -19,6 +19,13 @@
     line: "disable_root: false"
   register: cloudInitConfigState
 
+- name: enable root SSH through cloud-init
+  ansible.builtin.lineinfile:
+    path: /etc/cloud/cloud.cfg
+    regexp: '^ssh_pwauth'
+    line: "ssh_pwauth: true"
+  register: cloudInitConfigState
+
 - name: regenerate cloud init
   ansible.builtin.command:
     cmd: /usr/bin/cloud-init clean
@@ -40,13 +47,24 @@
   ansible.builtin.systemd_service:
     name: ssh.service
     state: restarted
-  when: sshConfigState.changed
+  when: 
+  - sshConfigState.changed
+  - ansible_facts['os_family'] == 'Debian'
+
+- name: restart sshd
+  ansible.builtin.systemd_service:
+    name: sshd.service
+    state: restarted
+  when: 
+  - sshConfigState.changed
+  - ansible_facts['os_family'] == 'RedHat'
 
 - name: apt update 
   ansible.builtin.apt:
     update_cache: yes 
+  when: ansible_facts['os_family'] == 'Debian'
 
-- name: install applications
+- name: install applications via apt
   ansible.builtin.apt:
     pkg:
     - tree
@@ -58,6 +76,36 @@
     - lsof
     - mlocate
     - qemu-guest-agent
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: update cache dnf
+  ansible.builtin.dnf:
+    update_cache: yes
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: install epel release
+  ansible.builtin.dnf:
+    name: epel-release
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: update cache dnf
+  ansible.builtin.dnf:
+    update_cache: yes
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: install applications via dnf
+  ansible.builtin.dnf:
+    pkg:
+    - tree
+    - unzip
+    - git
+    - htop
+    - net-tools 
+    - ncdu
+    - lsof
+    - mlocate
+    - qemu-guest-agent
+  when: ansible_facts['os_family'] == 'RedHat'
 
 - name: enable qemu guest agent 
   ansible.builtin.systemd_service:

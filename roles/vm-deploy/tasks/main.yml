@@ -18,19 +18,37 @@
     become: false
     run_once: true
 
-  - name: Create a full clone of template
+  - name: Create a full clone of template Debian
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}"
       clone: template
-      vmid: "{{ template }}" 
+      vmid: "{{ debian }}" 
       newid: "{{ vlan }}{{ id }}"
       name: "{{ inventory_hostname }}"
       storage: "{{ storage }}"
       format: "{{ format }}"
       timeout: 120
+    when: os is undefined
+
+  - name: Create a full clone of template Alma linux
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ ansible_password }}"
+      api_host: "{{ node_name }}"
+      clone: template
+      vmid: "{{ alma }}" 
+      newid: "{{ vlan }}{{ id }}"
+      name: "{{ inventory_hostname }}"
+      storage: "{{ storage }}"
+      format: "{{ format }}"
+      timeout: 120
+    when: 
+    - os is defined 
+    - os == "Alma-Linux"
 
   - name: modify vm to specified specs 
     community.general.proxmox_kvm:

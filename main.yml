@@ -29,15 +29,15 @@
       - state == "stopped"
       tags: always
 
+    - name: gather facts
+      setup:
+      tags: always
+
     # PREPARE VMS 
     - name: prep VM 
       import_role:
         name: vm-config
       tags: deploy 
-
-    - name: gather facts
-      setup:
-      tags: always
 
     # INSTALL ZABBIX AGENT
     - name: include zabbix role 
