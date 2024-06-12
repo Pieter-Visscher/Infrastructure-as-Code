@@ -35,9 +35,14 @@ ungrouped:         #
       id: 10
       zabbix: enabled
 
-    awx-receptor.pieter.fish:
+    rex.awx.pieter.fish:
       vlan: 50
       id: 13
+      os: Alma-Linux
+
+    hop.awx.pieter.fish:
+      vlan: 103
+      id: 7
       os: Alma-Linux
 
     ansible-test.pieter.fish:
