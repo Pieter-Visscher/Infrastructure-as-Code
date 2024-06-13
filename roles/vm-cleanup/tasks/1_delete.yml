@@ -1,0 +1,28 @@
+  - name: debug deleted_vms_proxmox
+    ansible.builtin.debug:
+      msg: 
+      - "{{ names_deleted}}"
+      - "{{ vmid_deleted }}"
+    run_once: true
+
+  - name: stop VM prompted for deletion
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ ansible_password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ item }}"
+      state: stopped 
+    loop: "{{ vmid_deleted }}"
+    run_once: true
+
+  - name: remove VM prompted for deletion
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ ansible_password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ item }}"
+      state: absent 
+    loop: "{{ vmid_deleted }}"
+    run_once: true

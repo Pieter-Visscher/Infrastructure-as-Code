@@ -1,0 +1,91 @@
+  - name: gather public keys
+    ansible.builtin.assemble:
+      src: "templates/ssh/"
+      dest: "/tmp/ssh_keys"
+      mode: 0644
+    become: false
+    run_once: true
+
+  - name: Create a full clone of template Debian
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ ansible_password }}"
+      api_host: "{{ node_name }}"
+      clone: template
+      vmid: "{{ debian }}" 
+      newid: "{{ vlan }}{{ id }}"
+      name: "{{ inventory_hostname }}"
+      storage: "{{ storage }}"
+      format: "{{ format }}"
+      timeout: 120
+    when: os is undefined
+
+  - name: Create a full clone of template Alma linux
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ ansible_password }}"
+      api_host: "{{ node_name }}"
+      clone: template
+      vmid: "{{ alma }}" 
+      newid: "{{ vlan }}{{ id }}"
+      name: "{{ inventory_hostname }}"
+      storage: "{{ storage }}"
+      format: "{{ format }}"
+      timeout: 120
+    when: 
+    - os is defined 
+    - os == "Alma-Linux"
+
+  - name: modify vm to specified specs 
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ ansible_password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ vlan }}{{ id }}"
+      cores: "{{ cpu | default(4) }}"
+      memory: "{{ memory | default(4096) }}"
+      ipconfig: 
+        ipconfig0: "ip={{ subnet }}.{{ vlan }}.{{ id }}/{{ cidr }},gw={{ subnet }}.{{ vlan }}.{{ gateway }}"
+      ciuser: "ansible"
+      cipassword: "{{ ansible_password }}"
+      sshkeys: "{{ lookup('ansible.builtin.file','/tmp/ssh_keys') }}"
+      update: true 
+
+  - name: set vlan tag on net_0
+    community.general.proxmox_nic:
+      api_user: "{{ user }}"
+      api_password: "{{ ansible_password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ vlan }}{{ id }}"
+      interface: net0
+      bridge: "{{ bridge }}"
+      tag: "{{ vlan }}"
+
+  - name: Grow existing disk
+    community.general.proxmox_disk:
+      api_host: "{{ node_name }}" 
+      api_user: "{{ user }}"
+      api_password: "{{ ansible_password }}"
+      vmid: "{{ vlan }}{{ id }}" 
+      disk: scsi0
+      size: "{{ disk | default(20)}}G"
+      state: resized
+
+  - name: change state of the VM 
+    community.general.proxmox_kvm:
+      node: "{{ node_name }}"
+      api_user: "{{ user }}"
+      api_password: "{{ ansible_password }}"
+      api_host: "{{ node_name }}"
+      vmid: "{{ vlan }}{{ id }}"
+      state: "{{ state | default('started') }}"
+    register: newState
+
+  - name: wait if power state has changed
+    ansible.builtin.wait_for:
+      timeout: 60 
+    when: newState.changed
+

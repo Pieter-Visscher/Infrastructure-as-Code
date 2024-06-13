@@ -1,0 +1,36 @@
+  - name: get list 
+    ansible.builtin.uri:
+      url: https://api.cloudflare.com/client/v4/zones/{{ zone_id }}/dns_records
+      method: GET
+      headers:
+        authorization: "Bearer {{ cf_api_token }}"
+      body_format: json
+    register: dns_list
+    run_once: true
+
+  - name: debug dns_list
+    ansible.builtin.debug:
+      msg: "{{ dns_list }}"
+    run_once: true
+
+  - name: register dns fact
+    ansible.builtin.set_fact:
+      dns_ids: "{{ dns_ids|default([]) + [item.id] }}"
+    loop: "{{ dns_list.json.result }}"
+    when: item.name in names_deleted
+    run_once: true
+
+  - name: debug dns_ids
+    ansible.builtin.debug:
+      msg: "{{ dns_ids }}"
+    run_once: true
+
+  - name: DELETE record at cloudflare
+    ansible.builtin.uri:
+      url:  https://api.cloudflare.com/client/v4/zones/{{ zone_id }}/dns_records/{{ item }}
+      method: DELETE 
+      headers:
+        authorization: "Bearer {{ cf_api_token }}"
+    loop: "{{ dns_ids }}"
+    run_once: true
+
