@@ -25,12 +25,12 @@ ungrouped:         #
 #      disk: 32
 #      deploy: false
 
-    kube-bck:
+    kube-bck.pieter.fish:
       vlan: 103
       id: 6
       disk: 50
 
-    wireguard:
+    wireguard.pieter.fish:
       vlan: 99
       id: 10
       zabbix: enabled
@@ -49,14 +49,14 @@ ungrouped:         #
       vlan: 50
       id: 14
 
-    steam:
+    steam.pieter.fish:
       vlan: 102
       id: 10
       memory: 16384
       disk: 30
       state: stopped
 
-    minecraft-david:
+    minecraft-david.pieter.fish:
       vlan: 100
       id: 10
       memory: 32768
@@ -69,12 +69,12 @@ zabbix:            #
   hosts:           #
 ####################
 
-    zbx-proxy-htz01.pvisscher.nl:
+    zbx-proxy-htz01.pvisscher.nl.pieter.fish:
       vlan: 50
       id: 11
       disk: 30
 
-    zbx-server-htz01:
+    zbx-server-htz01.pieter.fish:
       vlan: 50
       id: 12
       disk: 100
@@ -85,12 +85,12 @@ webservers:        #
   hosts:           #
 ####################
 
-    bookstack:
+    bookstack.web.pieter.fish:
       vlan: 100
       id: 12 
       disk: 50
 
-    web01:
+    web01.pieter.fish:
       vlan: 100
       id: 17 
 
@@ -99,15 +99,15 @@ proxies:           #
   hosts:           #
 ####################
 
-    webproxy:
+    webproxy.pieter.fish:
       vlan: 100
       id: 16
 
-    kube-ha-00:
+    kube-ha-00.pieter.fish:
       vlan: 103
       id: 13 
 
-    kube-ha-01:
+    kube-ha-01.pieter.fish:
       vlan: 103
       id: 14
 
@@ -116,37 +116,37 @@ kubernetes:        #
   hosts:           #
 ####################
 
-    kube-master-00:
+    kube-master-00.pieter.fish:
       vlan: 103
       id: 10
 
-    kube-master-01:
+    kube-master-01.pieter.fish:
       vlan: 103
       id: 11
 
-    kube-master-02:
+    kube-master-02.pieter.fish:
       vlan: 103
       id: 12
 
-    kube-worker-00:
+    kube-worker-00.pieter.fish:
       vlan: 103
       id: 20
       disk: 50
       memory: 8192
 
-    kube-worker-01:
+    kube-worker-01.pieter.fish:
       vlan: 103
       id: 21
       disk: 50
       memory: 8192
 
-    kube-worker-02:
+    kube-worker-02.pieter.fish:
       vlan: 103
       id: 22
       disk: 50
       memory: 8192
 
-    test-k8s-node-00:
+    test-k8s-node-00.pieter.fish:
       vlan: 103
       id: 200
       kubernetes: v1.29
@@ -156,7 +156,7 @@ docker:            #
   hosts:           #
 ####################
 
-    docker-repo.pvisscher.nl:
+    docker-repo.pieter.fish:
       vlan: 103
       id: 05
       disk: 30
@@ -166,22 +166,22 @@ nick:              #
   hosts:           #
 ####################
 
-    NicksFuckUp:
+    NicksFuckUp.pieter.fish:
       vlan: 101
       id: 11
       custom_root_password: "{{ vaulted_nick_password }}"
 
-    NicksWebServer:
+    NicksWebServer.pieter.fish:
       vlan: 101
       id: 12
       custom_root_password: "{{ vaulted_nick_password }}"
 
-    nick-mail:
+    nick-mail.pieter.fish:
       vlan: 101
       id: 13
       custom_root_password: "{{ vaulted_nick_password }}"
 
-    nick-mail-test:
+    nick-mail-test.pieter.fish:
       vlan: 101
       id: 14
       custom_root_password: "{{ vaulted_nick_password }}"

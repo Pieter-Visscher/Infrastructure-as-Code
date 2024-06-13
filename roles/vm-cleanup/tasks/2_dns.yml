@@ -24,6 +24,7 @@
     ansible.builtin.debug:
       msg: "{{ dns_ids }}"
     run_once: true
+    when: dns_ids is defined
 
   - name: DELETE record at cloudflare
     ansible.builtin.uri:
@@ -33,4 +34,5 @@
         authorization: "Bearer {{ cf_api_token }}"
     loop: "{{ dns_ids }}"
     run_once: true
+    when: dns_ids is defined
 

@@ -11,4 +11,5 @@
         content: "{{ subnet }}.{{ vlan }}.{{ id }}"
         ttl: 1
         proxied: false
-
+    register: create_dns_record
+    ignore_errors: true

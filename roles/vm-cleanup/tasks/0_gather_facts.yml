@@ -1,4 +1,4 @@
- - name: get all VMs on node
+  - name: get all VMs on node
     community.general.proxmox_vm_info:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
