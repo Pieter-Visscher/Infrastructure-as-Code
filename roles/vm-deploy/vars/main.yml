@@ -1,4 +1,4 @@
-node_name: prox01 
+node_name: prox01.pieter.fish
 storage: local-zfs
 format: raw
 subnet: 10.1
