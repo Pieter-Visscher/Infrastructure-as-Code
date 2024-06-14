@@ -1,4 +1,5 @@
-node_name: prox01.pieter.fish
+node_name: prox01
+domain: pieter.fish
 known_ids: ["100", "9997", "9998", "9999", "99999", "999999", "9999999"]
 
 
