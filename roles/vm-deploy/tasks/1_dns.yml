@@ -1,0 +1,15 @@
+  - name: create record at cloudflare
+    ansible.builtin.uri:
+      url: https://api.cloudflare.com/client/v4/zones/{{ zone_id }}/dns_records
+      method: POST
+      headers:
+        authorization: "Bearer {{ cf_api_token }}"
+      body_format: json
+      body:
+        type: "A"
+        name: "{{ inventory_hostname}}"
+        content: "{{ subnet }}.{{ vlan }}.{{ id }}"
+        ttl: 1
+        proxied: false
+    register: create_dns_record
+    ignore_errors: true
