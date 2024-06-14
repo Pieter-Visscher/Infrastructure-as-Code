@@ -11,7 +11,7 @@
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}"
+      api_host: "{{ node_name }}.{{ domain }}"
       clone: template
       vmid: "{{ debian }}" 
       newid: "{{ vlan }}{{ id }}"
@@ -26,7 +26,7 @@
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}"
+      api_host: "{{ node_name }}.{{ domain }}"
       clone: template
       vmid: "{{ alma }}" 
       newid: "{{ vlan }}{{ id }}"
@@ -43,7 +43,7 @@
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}"
+      api_host: "{{ node_name }}.{{ domain }}"
       vmid: "{{ vlan }}{{ id }}"
       cores: "{{ cpu | default(4) }}"
       memory: "{{ memory | default(4096) }}"
@@ -58,7 +58,7 @@
     community.general.proxmox_nic:
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}"
+      api_host: "{{ node_name }}.{{ domain }}"
       vmid: "{{ vlan }}{{ id }}"
       interface: net0
       bridge: "{{ bridge }}"
@@ -66,7 +66,7 @@
 
   - name: Grow existing disk
     community.general.proxmox_disk:
-      api_host: "{{ node_name }}" 
+      api_host: "{{ node_name }}.{{ domain }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
       vmid: "{{ vlan }}{{ id }}" 
@@ -79,7 +79,7 @@
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}"
+      api_host: "{{ node_name }}.{{ domain }}"
       vmid: "{{ vlan }}{{ id }}"
       state: "{{ state | default('started') }}"
     register: newState

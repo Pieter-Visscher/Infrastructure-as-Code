@@ -10,7 +10,7 @@
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}"
+      api_host: "{{ node_name }}.{{ domain }}"
       vmid: "{{ item }}"
       state: stopped 
     loop: "{{ vmid_deleted }}"
@@ -21,7 +21,7 @@
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}"
+      api_host: "{{ node_name }}.{{ domain }}"
       vmid: "{{ item }}"
       state: absent 
     loop: "{{ vmid_deleted }}"

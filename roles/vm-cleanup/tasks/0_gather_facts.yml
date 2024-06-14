@@ -3,7 +3,7 @@
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}"
+      api_host: "{{ node_name }}.{{ domain }}"
       type: qemu
     run_once: true
     register: proxmox_vms
