@@ -49,6 +49,10 @@ ungrouped:         #
       vlan: 50
       id: 14
 
+    awx-ansible-test.pieter.fish:
+      vlan: 50
+      id: 15
+
     steam.pieter.fish:
       vlan: 102
       id: 10
