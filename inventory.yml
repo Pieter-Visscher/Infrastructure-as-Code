@@ -39,11 +39,13 @@ ungrouped:         #
       vlan: 50
       id: 13
       os: Alma-Linux
+      ansible_managed: false
 
     hop.awx.pieter.fish:
       vlan: 103
       id: 7
       os: Alma-Linux
+      ansible_managed: false
 
     ansible-test.pieter.fish:
       vlan: 50

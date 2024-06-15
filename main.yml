@@ -22,11 +22,14 @@
       when: deploy | default(true)
       tags: deploy 
 
-    - name: remove stopped machines from play 
+    - name: remove machines from play 
       ansible.builtin.meta: end_host
       when: 
       - state is defined 
       - state == "stopped"
+      or
+      - ansible_managed is defined
+      - ansible_managed == false
       tags: always
 
     - name: gather facts
@@ -37,7 +40,6 @@
     - name: prep VM 
       import_role:
         name: vm-config
-      become: true
       tags: deploy 
 
     # INSTALL ZABBIX AGENT
