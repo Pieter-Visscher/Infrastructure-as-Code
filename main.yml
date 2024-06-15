@@ -25,11 +25,7 @@
     - name: remove machines from play 
       ansible.builtin.meta: end_host
       when: 
-      - state is defined 
-      - state == "stopped"
-      or
-      - ansible_managed is defined
-      - ansible_managed == false
+        - (state is defined and state == "stopped") or (ansible_managed is defined and ansible_managed == false)
       tags: always
 
     - name: gather facts
