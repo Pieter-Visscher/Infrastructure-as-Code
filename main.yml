@@ -37,6 +37,7 @@
     - name: prep VM 
       import_role:
         name: vm-config
+      become: true
       tags: deploy 
 
     # INSTALL ZABBIX AGENT
