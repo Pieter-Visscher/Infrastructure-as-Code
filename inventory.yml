@@ -10,6 +10,8 @@
 #      disk: 20        DEFAULT VALUE, OPTIONAL
 #      state: 'started'  DEFAULT VALUE, OPTIONAL, OPTIONS: 'started' OR 'stopped'
 #      deploy: true    DEFAULT VALUE, OPTIONAL, OPTIONS: true OR false setting this to valse disables all previously listed options
+#      ansible_managed: true DEFAULT VALUE, OPTIONAL, OPTIONS: true OR false. IF FALSE, AWX WONT EXECUTE PLAYBOOKS ON THIS HOST
+#      
 #
 # IF YOU WANT TO KEEP A VM WHICH IS NOT MANAGED BY THE AUTOMATIC DEPLOY ADD ITS ID TO THE VARS:
 # roles/vm-cleanup/vars/main.yml
