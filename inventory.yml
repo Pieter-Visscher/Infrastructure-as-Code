@@ -64,6 +64,10 @@ ungrouped:         #
       disk: 60
       state: stopped
 
+    ssh-honeypot.pieter.fish:
+      vlan: 104
+      id: 10
+
 ####################
 zabbix:            #
   hosts:           #
