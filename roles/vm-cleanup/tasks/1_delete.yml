@@ -1,7 +1,6 @@
   - name: debug deleted_vms_proxmox
     ansible.builtin.debug:
       msg: 
-      - "{{ names_deleted}}"
       - "{{ vmid_deleted }}"
     run_once: true
 
@@ -13,6 +12,7 @@
       api_host: "{{ node_name }}.{{ domain }}"
       vmid: "{{ item }}"
       state: stopped 
+      force: true
     loop: "{{ vmid_deleted }}"
     run_once: true
 
