@@ -32,7 +32,7 @@ jobs:
       - name: test echo
         env:
           var: ${{ secrets.TEST_VAR }}
-        run: echo $env
+        run: echo "${{ secrets.TEST_VAR }}"
 
       - name: make api call to AWX
         env:
