@@ -32,6 +32,10 @@ ungrouped:         #
       id: 6
       disk: 50
 
+    deploy-test.pieter.fish:
+      vlan: 103
+      id: 8
+
     wireguard.pieter.fish:
       vlan: 99
       id: 10
