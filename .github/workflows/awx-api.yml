@@ -29,10 +29,8 @@ jobs:
         run: |
           sudo apt update && sudo apt install curl -y
 
-      - name: sleep to allow debugging
-        run: sleep 600
       - name: make api call to AWX
         env:
           token: ${{ secrets.AWX_TOKEN }}
         run: |
-          curl -X POST -k https://awx.pieter.fish/api/v2/workflow_job_templates/13/launch/ -H 'Authorization: Bearer $token'
+          curl -X POST -k https://awx.pieter.fish/api/v2/workflow_job_templates/13/launch/ -H 'Authorization: Bearer ${token}'
