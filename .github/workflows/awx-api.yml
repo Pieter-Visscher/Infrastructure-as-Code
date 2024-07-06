@@ -29,6 +29,8 @@ jobs:
         run: |
           sudo apt update && sudo apt install curl -y
 
+      - name: sleep to allow debugging
+        run: sleep 600
       - name: make api call to AWX
         env:
           token: ${{ secrets.AWX_TOKEN }}
