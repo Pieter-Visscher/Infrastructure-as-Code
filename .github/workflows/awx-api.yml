@@ -31,7 +31,6 @@ jobs:
 
       - name: make api call to AWX
         env:
-          user: ${{ secrets.AWX_USER }}
-          password: ${{ secrets.AWX_PASSWORD}}
+          token: ${{ secrets.AWX_TOKEN }}
         run: |
-          curl -X POST -u "$user:$password" -k https://awx.pieter.fish/api/v2/job_templates/14/launch
+          curl -X POST -k https://awx.pieter.fish/api/v2/workflow_job_templates/13/launch/ -H 'Authorization: Bearer $token'
