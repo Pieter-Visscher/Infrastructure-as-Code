@@ -57,6 +57,11 @@ ungrouped:         #
       os: Alma-Linux
       ansible_managed: false
 
+    test.pieter.fish:
+      vlan: 100
+      id: 250
+      os: Alma-Linux
+
     steam.pieter.fish:
       vlan: 102
       id: 10
