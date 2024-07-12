@@ -1,4 +1,5 @@
 ---
-release: v1.29
-pod_cidr: 10.255.0.0/16
-
+release: v1.30
+pod_cidr: 10.85.0.0/16
+service_cidr: 10.96.0.0/12
+kubeconfig: /root/.kube/config
