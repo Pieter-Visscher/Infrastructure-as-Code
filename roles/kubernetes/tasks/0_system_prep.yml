@@ -13,6 +13,24 @@
       - yum-plugin-versionlock
       - pip
     state: present
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: install dependencies
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gpg
+      - conntrack
+      - container-selinux
+      - ebtables
+      - ethtool
+      - iptables
+      - socat
+      - yum-plugin-versionlock
+      - pip
+    state: present
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: ensure pip modules are installed
   ansible.builtin.pip:
