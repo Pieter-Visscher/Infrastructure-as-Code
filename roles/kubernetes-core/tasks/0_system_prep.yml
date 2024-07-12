@@ -1,0 +1,85 @@
+- name: install dependencies
+  ansible.builtin.yum:
+    name:
+      - ca-certificates
+      - curl
+      - gpg
+      - conntrack
+      - container-selinux
+      - ebtables
+      - ethtool
+      - iptables
+      - socat
+      - yum-plugin-versionlock
+      - pip
+    state: present
+
+- name: ensure pip modules are installed
+  ansible.builtin.pip:
+    name:
+      - pyyaml
+      - kubernetes 
+
+- name: check if csf exists
+  ansible.builtin.stat:
+    path: /etc/csf/
+  register: csf_status 
+
+- name: uninstall CSF if present 
+  ansible.builtin.shell: sh /etc/csf/uninstall.sh
+  when: csf_status.stat.exists
+
+- name: delete CSF files if present 
+  ansible.builtin.file:
+    path: /etc/csf
+    state: absent
+  when: csf_status.stat.exists
+
+- name: add overlay module
+  community.general.modprobe:
+    name: overlay
+    state: present
+    persistent: present
+
+- name: add br_netfilter module
+  community.general.modprobe:
+    name: br_netfilter
+    state: present
+    persistent: present
+
+- name: set net.bridge.bridge-nf-call-iptables to 1
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: 1
+    state: present
+    sysctl_file: /etc/sysctl.d/k8s.conf
+
+- name: set net.bridge.bride-nf-call-ip6tables to 1
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-ip6tables
+    value: 1
+    state: present
+    sysctl_file: /etc/sysctl.d/k8s.conf
+
+- name: set net.ipv4.ip_forward to 1
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    state: present
+    sysctl_file: /etc/sysctl.d/k8s.conf
+
+- name: check if helm is installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/helm
+  register: helm_status 
+
+- name: download helm install script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: /root/get-helm-3.sh
+    mode: 0700
+  when: not helm_status.stat.exists
+
+- name: install helm
+  ansible.builtin.shell: bash /root/get-helm-3.sh
+  when: not helm_status.stat.exists

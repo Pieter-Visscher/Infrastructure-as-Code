@@ -1,2 +1,15 @@
-- import_tasks: 0_install_kubernetes.yml
-- import_tasks: 1_install_crio.yml
+# playbook depends on the following galaxy collections:
+# kubernetes.core
+# community.general
+# ansible.posix
+
+# playbook was build with the following documentiation in mind:
+# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+# https://kubernetes.io/docs/setup/production-environment/container-runtimes/
+# https://kubernetes.io/blog/2023/10/10/cri-o-community-package-infrastructure/
+# https://docs.cilium.io/en/stable/installation/k8s-install-helm/
+  - import_tasks: tasks/0_system_prep.yml
+  - import_tasks: tasks/1_install_kubernetes_core.yml
+  - import_tasks: tasks/2_install_container_runtime.yml
+  - import_tasks: tasks/3_bootstrap_cluster.yml
+  - import_tasks: tasks/4_installing_cilium.yml

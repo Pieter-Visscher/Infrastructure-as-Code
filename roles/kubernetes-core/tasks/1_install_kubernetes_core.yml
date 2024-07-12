@@ -1,0 +1,29 @@
+- name: add yum repository
+  ansible.builtin.yum_repository:
+    name: kubernetes 
+    description: Kubernetes yum repository
+    file: kubernetes.repo
+    baseurl: https://pkgs.k8s.io/core:/stable:/{{ release }}/rpm/
+    gpgcheck: yes
+    gpgkey: https://pkgs.k8s.io/core:/stable:/{{ release }}/rpm/repodata/repomd.xml.key
+
+- name: install k8s packages
+  ansible.builtin.yum:
+    name: 
+      - kubeadm
+      - kubectl
+      - kubelet
+
+- name: version lock kubernetes components
+  community.general.yum_versionlock:
+    state: present
+    name:
+    - kubeadm
+    - kubectl
+    - kubelet
+
+- name: enable kubelet
+  ansible.builtin.systemd: 
+    name: kubelet
+    state: started
+    enabled: true

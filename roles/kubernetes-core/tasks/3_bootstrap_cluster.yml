@@ -1,0 +1,50 @@
+- name: check if cluster exists
+  ansible.builtin.stat:
+    path: /etc/kubernetes/admin.conf
+  register: cluster_status
+
+- name: bootstrapping master node 
+  ansible.builtin.shell: kubeadm init --pod-network-cidr={{ pod_cidr }} --service-cidr={{ service_cidr }}
+  when: not cluster_status.stat.exists
+
+- name: creating kubectl dir for ansible users
+  ansible.builtin.file:
+    path: /home/ansible/.kube
+    state: directory
+    mode: 0755
+    owner: ansible
+    group: ansible
+
+- name: configure kubectl for ansible
+  ansible.builtin.copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ansible/.kube/config
+    remote_src: yes
+    owner: ansible
+    group: ansible
+    mode: 0600
+
+- name: creating kubectl dir for root users
+  ansible.builtin.file:
+    path: /root/.kube
+    state: directory
+    mode: 0755
+    owner: root 
+    group: root
+
+- name: configure kubectl for root 
+  ansible.builtin.copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /root/.kube/config
+    remote_src: yes
+    owner: root 
+    group: root
+    mode: 0600
+
+- name: remove NoSchedule taint from kubernetes node
+  kubernetes.core.k8s_taint:
+    state: absent
+    name: "{{ ansible_fqdn }}"
+    taints:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/control-plane

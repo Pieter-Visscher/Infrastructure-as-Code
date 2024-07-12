@@ -1,0 +1,20 @@
+- name: add cilium helm repository
+  kubernetes.core.helm_repository:
+    name: cilium
+    repo_url: https://helm.cilium.io/
+
+- name: install cilium CNI
+  kubernetes.core.helm:
+    name: cilium
+    chart_ref: cilium/cilium
+    release_namespace: kube-system
+    values:
+      ipam:
+        mode: kubernetes
+      cluster:
+        name: default
+      cluster:
+        podCIDR: "{{ pod_cidr }}"
+
+- name: restart unmanaged pods
+  ansible.builtin.shell: kubectl get pods --all-namespaces -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOSTNETWORK:.spec.hostNetwork --no-headers=true | grep '<none>' | awk '{print "-n "$1" "$2}' | xargs -L 1 -r kubectl delete pod
