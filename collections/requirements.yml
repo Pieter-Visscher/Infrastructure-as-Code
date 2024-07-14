@@ -6,7 +6,7 @@ collections:
   - name: ansible.utils
     source: https://galaxy.ansible.com
 
-  - name: ansible.posix.sysctl
+  - name: ansible.posix
     source: https://galaxy.ansible.com
 
   - name: kubernetes.core
