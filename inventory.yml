@@ -160,6 +160,10 @@ kubernetes:        #
       disk: 50
       memory: 8192
 
+    test-deb-node.pieter.fish:
+      vlan: 103
+      id: 30
+
 ####################
 docker:            #
   hosts:           #
