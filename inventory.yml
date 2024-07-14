@@ -36,10 +36,6 @@ ungrouped:         #
       id: 6
       disk: 50
 
-    deploy-test.pieter.fish:
-      vlan: 103
-      id: 8
-
     wireguard.pieter.fish:
       vlan: 99
       id: 10
@@ -56,11 +52,6 @@ ungrouped:         #
       id: 7
       os: Alma-Linux
       ansible_managed: false
-
-    test.pieter.fish:
-      vlan: 100
-      id: 250
-      os: Alma-Linux
 
     steam.pieter.fish:
       vlan: 102
