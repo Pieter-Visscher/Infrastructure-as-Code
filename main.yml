@@ -50,7 +50,7 @@
     # INSTALL KUBERNETES CORE ON KUBERNETES NODES 
     - name: install kubernetes core
       import_role:
-        name: kubernetes-core
+        name: kubernetes
       when: kubernetes is defined 
       tags: kubernetes
 
