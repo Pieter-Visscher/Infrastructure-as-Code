@@ -53,6 +53,7 @@
       cipassword: "{{ ansible_password }}"
       sshkeys: "{{ lookup('ansible.builtin.file','/tmp/ssh_keys') }}"
       update: true 
+    ignore_errors: yes
 
   - name: set vlan tag on net_0
     community.general.proxmox_nic:
