@@ -155,6 +155,10 @@ kubernetes:        #
       vlan: 103
       id: 30
 
+    test-k3s.pieter.fish:
+      vlan: 103
+      id: 31
+
 ####################
 docker:            #
   hosts:           #
