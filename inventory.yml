@@ -90,6 +90,12 @@ webservers:        #
   hosts:           #
 ####################
 
+    immich.pieter.fish:
+      vlan: 100
+      id: 11
+      disk: 50
+      memory: 8192
+
     bookstack.web.pieter.fish:
       vlan: 100
       id: 12 
