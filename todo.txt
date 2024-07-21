@@ -14,6 +14,7 @@ basic image:
 -hostvars: role: each role must be unqiue. webserver zabbix-proxy zabbix-server database control-plane worker haproxy etc
  possible solution: no unique roles but deploy software based on inventory hostgroups and specific component described in role.
 	better utilize host groups
+-redo specific OS deployment to be more intelligent. One clone task, put VMID to be cloned in a more flexible var instead of hardcoded
 
 Done:
 -automatic VM creation
