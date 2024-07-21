@@ -95,15 +95,18 @@ webservers:        #
       id: 11
       disk: 50
       memory: 8192
+      zabbix: enabled
 
     bookstack.web.pieter.fish:
       vlan: 100
       id: 12 
       disk: 50
+      zabbix: enabled
 
     web01.pieter.fish:
       vlan: 100
       id: 17 
+      zabbix: enabled
 
 ####################
 proxies:           #
@@ -113,14 +116,17 @@ proxies:           #
     webproxy.pieter.fish:
       vlan: 100
       id: 16
+      zabbix: enabled
 
     kube-ha-00.pieter.fish:
       vlan: 103
       id: 13 
+      zabbix: enabled
 
     kube-ha-01.pieter.fish:
       vlan: 103
       id: 14
+      zabbix: enabled
 
 ####################
 kubernetes:        #
@@ -174,6 +180,7 @@ docker:            #
       vlan: 103
       id: 05
       disk: 30
+      zabbix: enabled
 
 ####################
 nick:              #
@@ -184,18 +191,22 @@ nick:              #
       vlan: 101
       id: 11
       custom_root_password: "{{ vaulted_nick_password }}"
+      zabbix: enabled
 
     NicksWebServer.pieter.fish:
       vlan: 101
       id: 12
       custom_root_password: "{{ vaulted_nick_password }}"
+      zabbix: enabled
 
     nick-mail.pieter.fish:
       vlan: 101
       id: 13
       custom_root_password: "{{ vaulted_nick_password }}"
+      zabbix: enabled
 
     nick-mail-test.pieter.fish:
       vlan: 101
       id: 14
       custom_root_password: "{{ vaulted_nick_password }}"
+      zabbix: enabled
