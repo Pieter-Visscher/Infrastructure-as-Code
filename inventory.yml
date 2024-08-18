@@ -71,7 +71,6 @@ ungrouped:         #
       memory: 32768
       cpu: 8
       disk: 60
-      state: stopped
 
 ####################
 zabbix:            #
