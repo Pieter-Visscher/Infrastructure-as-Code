@@ -71,6 +71,10 @@ ungrouped:         #
       vlan: 100
       id: 13
 
+    test02-deploy.pieter.fish:
+      vlan: 100
+      id: 14
+
 ####################
 zabbix:            #
   hosts:           #
