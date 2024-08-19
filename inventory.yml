@@ -209,3 +209,63 @@ nick:              #
       id: 14
       custom_root_password: "{{ vaulted_nick_password }}"
       zabbix: enabled
+
+
+####################
+OKD:               #
+  hosts:           #
+####################
+
+    bootstrap.okd.pieter.fish:
+      vlan: 104
+      id: 2
+      disk: 120
+      memory: 16384 
+
+    services.okd.pieter.fish:
+      vlan: 104
+      id: 3
+      disk: 120
+      memory: 16384 
+
+    master00.okd.pieter.fish:
+      vlan: 104
+      id: 20
+      disk: 120
+      memory: 16384 
+      state: stopped
+
+    master01.okd.pieter.fish:
+      vlan: 104
+      id: 21
+      disk: 120
+      memory: 16384 
+      state: stopped
+
+    master02.okd.pieter.fish:
+      vlan: 104
+      id: 22
+      disk: 120
+      memory: 16384 
+      state: stopped
+
+    worker00.okd.pieter.fish:
+      vlan: 104
+      id: 30
+      disk: 120
+      memory: 16384 
+      state: stopped
+
+    worker01.okd.pieter.fish:
+      vlan: 104
+      id: 31
+      disk: 120
+      memory: 16384 
+      state: stopped
+
+    worker02.okd.pieter.fish:
+      vlan: 104
+      id: 32
+      disk: 120
+      memory: 16384 
+      state: stopped
