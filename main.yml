@@ -28,6 +28,11 @@
         - (state is defined and state == "stopped") or (ansible_managed is defined and ansible_managed == false)
       tags: always
 
+    - name: Wait for port 22 to become reachable
+      ansible.builtin.wait_for:
+        port: 22
+        delay: 30
+
     - name: gather facts
       setup:
       tags: always

@@ -12,8 +12,3 @@
 
   - import_tasks: 0_create.yml
   - import_tasks: 1_dns.yml
-
-  - name: Wait for port 22 to become reachable 
-    ansible.builtin.wait_for:
-      port: 22
-      delay: 60 
