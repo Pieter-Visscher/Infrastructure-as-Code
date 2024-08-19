@@ -67,6 +67,10 @@ ungrouped:         #
       cpu: 8
       disk: 60
 
+    test-deploy.pieter.fish:
+      vlan: 100
+      id: 13
+
 ####################
 zabbix:            #
   hosts:           #
