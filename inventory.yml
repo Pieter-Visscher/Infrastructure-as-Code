@@ -221,6 +221,7 @@ OKD:               #
       id: 2
       disk: 120
       memory: 16384 
+      state: stopped
 
     services.okd.pieter.fish:
       vlan: 104
