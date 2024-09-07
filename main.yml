@@ -13,14 +13,14 @@
       when: deploy | default(true) 
       tags: deploy
 
-#    # START VM DELETION ON LOCALHOST
-#    - name: include vm-cleanup role 
-#      import_role:
-#        name: vm-cleanup
-#      become: false
-#      delegate_to: localhost
-#      when: deploy | default(true)
-#      tags: delete
+    # START VM DELETION ON LOCALHOST
+    - name: include vm-cleanup role 
+      import_role:
+        name: vm-cleanup
+      become: false
+      delegate_to: localhost
+      when: deploy | default(true)
+      tags: delete
 #
 #    - name: remove machines from play 
 #      ansible.builtin.meta: end_host
