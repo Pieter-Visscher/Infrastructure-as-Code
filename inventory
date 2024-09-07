@@ -9,6 +9,6 @@ params = {}
 response = requests.get(url)
 data = json.dumps(response.json())
 
-print(data)
+print(str(data))
 
 
