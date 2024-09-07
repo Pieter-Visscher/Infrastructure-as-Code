@@ -1,14 +1,23 @@
-#  - name: debug vars
-#    ansible.builtin.debug:
-#      msg: 
-#      - "{{ cpu | default(4) }}"
-#      - "{{ memory | default(4096) }}"
-#      - "{{ disk | default(20) }}"
-#      - "{{ vlan }}"
-#      - "{{ id }}"
-#      - "{{ node_name }}"
-#      - "{{  inventory_hostname }}"
-#      - "{{ vlan }}{{ id }}"
+  - name: set vmid
+    ansible.builtin.set_fact: 
+      vmid: "{{ ip.split('.')[2:4] | join('') }}"
 
-  - import_tasks: 0_create.yml
-  - import_tasks: 1_dns.yml
+  - name: set vlan
+    ansible.builtin.set_fact: 
+      vlan: "{{ ip.split('.')[2] }}"
+
+
+  - name: debug vars
+    ansible.builtin.debug:
+      msg: 
+      - "{{ cpu | default(4) }}"
+      - "{{ memory | default(4096) }}"
+      - "{{ disk | default(20) }}"
+      - "{{ node_name }}"
+      - "{{  inventory_hostname }}"
+      - "{{ ip }}"
+      - "{{ vlan }}"
+      - "{{ vmid }}"
+
+#  - import_tasks: 0_create.yml
+#  - import_tasks: 1_dns.yml

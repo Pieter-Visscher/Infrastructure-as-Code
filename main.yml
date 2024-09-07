@@ -13,44 +13,44 @@
       when: deploy | default(true) 
       tags: deploy
 
-    # START VM DELETION ON LOCALHOST
-    - name: include vm-cleanup role 
-      import_role:
-        name: vm-cleanup
-      become: false
-      delegate_to: localhost
-      when: deploy | default(true)
-      tags: deploy 
-
-    - name: remove machines from play 
-      ansible.builtin.meta: end_host
-      when: 
-        - (state is defined and state == "stopped") or (ansible_managed is defined and ansible_managed == false)
-      tags: always
-
-    - name: gather facts
-      setup:
-      tags: always
-
-    # PREPARE VMS 
-    - name: prep VM 
-      import_role:
-        name: vm-config
-      tags: prep
-
-    # INSTALL ZABBIX AGENT
-    - name: include zabbix role 
-      import_role:
-        name: zabbix 
-      when: 
-      - zabbix is defined 
-      - zabbix == "enabled"
-      tags: zabbix
-
-    # INSTALL KUBERNETES CORE ON KUBERNETES NODES 
-    - name: install kubernetes core
-      import_role:
-        name: kubernetes
-      when: kubernetes is defined 
-      tags: kubernetes
-
+#    # START VM DELETION ON LOCALHOST
+#    - name: include vm-cleanup role 
+#      import_role:
+#        name: vm-cleanup
+#      become: false
+#      delegate_to: localhost
+#      when: deploy | default(true)
+#      tags: delete
+#
+#    - name: remove machines from play 
+#      ansible.builtin.meta: end_host
+#      when: 
+#        - (state is defined and state == "stopped") or (ansible_managed is defined and ansible_managed == false)
+#      tags: always
+#
+#    - name: gather facts
+#      setup:
+#      tags: always
+#
+#    # PREPARE VMS 
+#    - name: prep VM 
+#      import_role:
+#        name: vm-config
+#      tags: prep
+#
+#    # INSTALL ZABBIX AGENT
+#    - name: include zabbix role 
+#      import_role:
+#        name: zabbix 
+#      when: 
+#      - zabbix is defined 
+#      - zabbix == "enabled"
+#      tags: zabbix
+#
+#    # INSTALL KUBERNETES CORE ON KUBERNETES NODES 
+#    - name: install kubernetes core
+#      import_role:
+#        name: kubernetes
+#      when: kubernetes is defined 
+#      tags: kubernetes
+#

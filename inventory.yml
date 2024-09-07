@@ -31,242 +31,250 @@ ungrouped:         #
 #      disk: 32
 #      deploy: false
 
-    kube-bck.pieter.fish:
-      vlan: 103
-      id: 6
-      disk: 50
+#    kube-bck.pieter.fish:
+#      vlan: 103
+#      id: 6
+#      disk: 50
 
     wireguard.pieter.fish:
       vlan: 99
       id: 10
       zabbix: enabled
-
-    rex.awx.pieter.fish:
-      vlan: 50
-      id: 13
-      os: Alma-Linux
-      ansible_managed: false
-
-    hop.awx.pieter.fish:
-      vlan: 103
-      id: 7
-      os: Alma-Linux
-      ansible_managed: false
-
-    steam.pieter.fish:
-      vlan: 102
-      id: 10
-      memory: 16384
-      disk: 30
-      state: stopped
-
-    minecraft-david.pieter.fish:
-      vlan: 100
-      id: 10
-      memory: 32768
-      cpu: 8
-      disk: 60
-
-####################
-zabbix:            #
-  hosts:           #
-####################
-
-    zbx-proxy-htz01.pvisscher.nl.pieter.fish:
-      vlan: 50
-      id: 11
-      disk: 30
-
-    zbx-server-htz01.pieter.fish:
-      vlan: 50
-      id: 12
-      disk: 100
-      memory: 8192
-
-
-####################
-webservers:        #
-  hosts:           #
-####################
-
-    immich.pieter.fish:
-      vlan: 100
-      id: 11
-      disk: 50
-      memory: 8192
-      zabbix: enabled
-
-    bookstack.web.pieter.fish:
-      vlan: 100
-      id: 12 
-      disk: 50
-      zabbix: enabled
-
-    web01.pieter.fish:
-      vlan: 100
-      id: 17 
-      zabbix: enabled
-
-####################
-proxies:           #
-  hosts:           #
-####################
-
-    webproxy.pieter.fish:
-      vlan: 100
-      id: 16
-      zabbix: enabled
-
-    kube-ha-00.pieter.fish:
-      vlan: 103
-      id: 13 
-      zabbix: enabled
-
-    kube-ha-01.pieter.fish:
-      vlan: 103
-      id: 14
-      zabbix: enabled
-
-####################
-kubernetes:        #
-  hosts:           #
-####################
-
-    kube-master-00.pieter.fish:
-      vlan: 103
-      id: 10
-
-    kube-master-01.pieter.fish:
-      vlan: 103
-      id: 11
-
-    kube-master-02.pieter.fish:
-      vlan: 103
-      id: 12
-
-    kube-worker-00.pieter.fish:
-      vlan: 103
-      id: 20
-      disk: 50
-      memory: 8192
-
-    kube-worker-01.pieter.fish:
-      vlan: 103
-      id: 21
-      disk: 50
-      memory: 8192
-
-    kube-worker-02.pieter.fish:
-      vlan: 103
-      id: 22
-      disk: 50
-      memory: 8192
-
-    test-deb-node.pieter.fish:
-      vlan: 103
-      id: 30
-
-    test-k3s.pieter.fish:
-      vlan: 103
-      id: 31
-
-####################
-docker:            #
-  hosts:           #
-####################
-
-    docker-repo.pieter.fish:
-      vlan: 103
-      id: 05
-      disk: 30
-      zabbix: enabled
-
-####################
-nick:              #
-  hosts:           #
-####################
-
-    NicksFuckUp.pieter.fish:
-      vlan: 101
-      id: 11
-      custom_root_password: "{{ vaulted_nick_password }}"
-      zabbix: enabled
-
-    NicksWebServer.pieter.fish:
-      vlan: 101
-      id: 12
-      custom_root_password: "{{ vaulted_nick_password }}"
-      zabbix: enabled
-
-    nick-mail.pieter.fish:
-      vlan: 101
-      id: 13
-      custom_root_password: "{{ vaulted_nick_password }}"
-      zabbix: enabled
-
-    nick-mail-test.pieter.fish:
-      vlan: 101
-      id: 14
-      custom_root_password: "{{ vaulted_nick_password }}"
-      zabbix: enabled
-
-
-####################
-OKD:               #
-  hosts:           #
-####################
-
-    bootstrap.okd.pieter.fish:
-      vlan: 104
-      id: 2
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    services.okd.pieter.fish:
-      vlan: 104
-      id: 3
-      disk: 120
-      memory: 16384 
-
-    master00.okd.pieter.fish:
-      vlan: 104
-      id: 20
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    master01.okd.pieter.fish:
-      vlan: 104
-      id: 21
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    master02.okd.pieter.fish:
-      vlan: 104
-      id: 22
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    worker00.okd.pieter.fish:
-      vlan: 104
-      id: 30
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    worker01.okd.pieter.fish:
-      vlan: 104
-      id: 31
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    worker02.okd.pieter.fish:
-      vlan: 104
-      id: 32
-      disk: 120
-      memory: 16384 
-      state: stopped
+      ip: 10.1.99.10
+#
+#    rex.awx.pieter.fish:
+#      vlan: 50
+#      id: 13
+#      os: Alma-Linux
+#      ansible_managed: false
+#
+#    hop.awx.pieter.fish:
+#      vlan: 103
+#      id: 7
+#      os: Alma-Linux
+#      ansible_managed: false
+#
+#    steam.pieter.fish:
+#      vlan: 102
+#      id: 10
+#      memory: 16384
+#      disk: 30
+#      state: stopped
+#
+#    minecraft-david.pieter.fish:
+#      vlan: 100
+#      id: 10
+#      memory: 32768
+#      cpu: 8
+#      disk: 60
+#
+#####################
+#zabbix:            #
+#  hosts:           #
+#####################
+#
+#    zbx-proxy-htz01.pvisscher.nl.pieter.fish:
+#      vlan: 50
+#      id: 11
+#      disk: 30
+#
+#    zbx-server-htz01.pieter.fish:
+#      vlan: 50
+#      id: 12
+#      disk: 100
+#      memory: 8192
+#
+#
+#####################
+#webservers:        #
+#  hosts:           #
+#####################
+#
+#    immich.pieter.fish:
+#      vlan: 100
+#      id: 11
+#      disk: 50
+#      memory: 8192
+#      zabbix: enabled
+#
+#    bookstack.web.pieter.fish:
+#      vlan: 100
+#      id: 12 
+#      disk: 50
+#      zabbix: enabled
+#
+#    web01.pieter.fish:
+#      vlan: 100
+#      id: 17 
+#      zabbix: enabled
+#
+#####################
+#proxies:           #
+#  hosts:           #
+#####################
+#
+#    webproxy.pieter.fish:
+#      vlan: 100
+#      id: 16
+#      zabbix: enabled
+#
+#    kube-ha-00.pieter.fish:
+#      vlan: 103
+#      id: 13 
+#      zabbix: enabled
+#
+#    kube-ha-01.pieter.fish:
+#      vlan: 103
+#      id: 14
+#      zabbix: enabled
+#
+#####################
+#kubernetes:        #
+#  hosts:           #
+#####################
+#
+#    kube-master-00.pieter.fish:
+#      vlan: 103
+#      id: 10
+#
+#    kube-master-01.pieter.fish:
+#      vlan: 103
+#      id: 11
+#
+#    kube-master-02.pieter.fish:
+#      vlan: 103
+#      id: 12
+#
+#    kube-worker-00.pieter.fish:
+#      vlan: 103
+#      id: 20
+#      disk: 50
+#      memory: 8192
+#
+#    kube-worker-01.pieter.fish:
+#      vlan: 103
+#      id: 21
+#      disk: 50
+#      memory: 8192
+#
+#    kube-worker-02.pieter.fish:
+#      vlan: 103
+#      id: 22
+#      disk: 50
+#      memory: 8192
+#
+#    test-deb-node.pieter.fish:
+#      vlan: 103
+#      id: 30
+#
+#    test-k3s.pieter.fish:
+#      vlan: 103
+#      id: 31
+#
+#####################
+#docker:            #
+#  hosts:           #
+#####################
+#
+#    docker-repo.pieter.fish:
+#      vlan: 103
+#      id: 05
+#      disk: 30
+#      zabbix: enabled
+#
+#####################
+#nick:              #
+#  hosts:           #
+#####################
+#
+#    NicksFuckUp.pieter.fish:
+#      vlan: 101
+#      id: 11
+#      custom_root_password: "{{ vaulted_nick_password }}"
+#      zabbix: enabled
+#
+#    NicksWebServer.pieter.fish:
+#      vlan: 101
+#      id: 12
+#      custom_root_password: "{{ vaulted_nick_password }}"
+#      zabbix: enabled
+#
+#    nick-mail.pieter.fish:
+#      vlan: 101
+#      id: 13
+#      custom_root_password: "{{ vaulted_nick_password }}"
+#      zabbix: enabled
+#
+#    nick-mail-test.pieter.fish:
+#      vlan: 101
+#      id: 14
+#      custom_root_password: "{{ vaulted_nick_password }}"
+#      zabbix: enabled
+#
+#
+#####################
+#OKD:               #
+#  hosts:           #
+#####################
+#
+#    bootstrap.okd.pieter.fish:
+#      vlan: 104
+#      id: 2
+#      disk: 120
+#      memory: 16384 
+#      state: stopped
+#      deploy: false
+#
+#    services.okd.pieter.fish:
+#      vlan: 104
+#      id: 3
+#      disk: 120
+#      memory: 16384 
+#
+#    master00.okd.pieter.fish:
+#      vlan: 104
+#      id: 20
+#      disk: 120
+#      memory: 16384 
+#      state: stopped
+#      deploy: false
+#
+#    master01.okd.pieter.fish:
+#      vlan: 104
+#      id: 21
+#      disk: 120
+#      memory: 16384 
+#      state: stopped
+#      deploy: false
+#
+#    master02.okd.pieter.fish:
+#      vlan: 104
+#      id: 22
+#      disk: 120
+#      memory: 16384 
+#      state: stopped
+#      deploy: false
+#
+#    worker00.okd.pieter.fish:
+#      vlan: 104
+#      id: 30
+#      disk: 120
+#      memory: 16384 
+#      state: stopped
+#      deploy: false
+#
+#    worker01.okd.pieter.fish:
+#      vlan: 104
+#      id: 31
+#      disk: 120
+#      memory: 16384 
+#      state: stopped
+#      deploy: false
+#
+#    worker02.okd.pieter.fish:
+#      vlan: 104
+#      id: 32
+#      disk: 120
+#      memory: 16384 
+#      state: stopped
+#      deploy: false

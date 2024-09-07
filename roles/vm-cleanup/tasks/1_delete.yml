@@ -1,28 +1,27 @@
+  - name: set vmid
+    ansible.builtin.set_fact: 
+      vmid: "{{ ip.split('.')[2:4] | join('') }}"
+
   - name: debug deleted_vms_proxmox
     ansible.builtin.debug:
       msg: 
-      - "{{ vmid_deleted }}"
-    run_once: true
+      - "{{ vmid }}"
 
   - name: stop VM prompted for deletion
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}.{{ domain }}"
+      api_host: "{{ node_name }}.{{ node_domain }}"
       vmid: "{{ item }}"
       state: stopped 
       force: true
-    loop: "{{ vmid_deleted }}"
-    run_once: true
 
   - name: remove VM prompted for deletion
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}.{{ domain }}"
-      vmid: "{{ item }}"
+      api_host: "{{ node_name }}.{{ node_domain }}"
+      vmid: "{{ vmid }}"
       state: absent 
-    loop: "{{ vmid_deleted }}"
-    run_once: true

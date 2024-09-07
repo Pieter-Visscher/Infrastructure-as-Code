@@ -6,37 +6,41 @@
     become: false
     run_once: true
 
-  - name: Create a full clone of template Debian
-    community.general.proxmox_kvm:
-      node: "{{ node_name }}"
-      api_user: "{{ user }}"
-      api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}.{{ domain }}"
-      clone: template
-      vmid: "{{ debian }}" 
-      newid: "{{ vlan }}{{ id }}"
-      name: "{{ inventory_hostname }}"
-      storage: "{{ storage }}"
-      format: "{{ format }}"
-      timeout: 120
-    when: os is undefined
+  - name: set vmid
+    ansible.builtin.set_fact: 
+      vmid: "{{ ip.split('.')[2:4] | join('') }}"
 
-  - name: Create a full clone of template Alma linux
+  - name: set vlan
+    ansible.builtin.set_fact: 
+      vlan: "{{ ip.split('.')[2] }}"
+
+  - name: set subnet
+    ansible.builtin.set_fact: 
+      subnet: "{{ ip.split('.')[0:3] }}"
+
+  - name: define os_id for Debian 
+    ansible.builtin.set_fact:
+      os_id: 9998
+    when: os == "Debian"
+
+  - name: define os_id for Alma Linux
+    ansible.builtin.set_fact:
+      os_id: 9999
+    when: os == "Alma-Linux"
+
+  - name: Create a full clone of template
     community.general.proxmox_kvm:
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}.{{ domain }}"
+      api_host: "{{ node_name }}.{{ node_domain }}"
       clone: template
-      vmid: "{{ alma }}" 
-      newid: "{{ vlan }}{{ id }}"
-      name: "{{ inventory_hostname }}"
+      vmid: "{{ os_id }}" 
+      newid: "{{ vmid }}"
+      name: "{{ inventory_hostname }}.{{ domain }}"
       storage: "{{ storage }}"
       format: "{{ format }}"
       timeout: 120
-    when: 
-    - os is defined 
-    - os == "Alma-Linux"
 
   - name: modify vm to specified specs 
     community.general.proxmox_kvm:
@@ -44,11 +48,11 @@
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}.{{ domain }}"
-      vmid: "{{ vlan }}{{ id }}"
+      vmid: "{{ vmid }}"
       cores: "{{ cpu | default(4) }}"
       memory: "{{ memory | default(4096) }}"
       ipconfig: 
-        ipconfig0: "ip={{ subnet }}.{{ vlan }}.{{ id }}/{{ cidr }},gw={{ subnet }}.{{ vlan }}.{{ gateway }}"
+        ipconfig0: "ip={{ ip }}/{{ cidr }},gw={{ subnet }}.{{ gateway }}"
       ciuser: "ansible"
       cipassword: "{{ ansible_password }}"
       sshkeys: "{{ lookup('ansible.builtin.file','/tmp/ssh_keys') }}"
@@ -59,18 +63,18 @@
     community.general.proxmox_nic:
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}.{{ domain }}"
-      vmid: "{{ vlan }}{{ id }}"
+      api_host: "{{ node_name }}.{{ node_domain }}"
+      vmid: "{{ vmid }}"
       interface: net0
       bridge: "{{ bridge }}"
       tag: "{{ vlan }}"
 
   - name: Grow existing disk
     community.general.proxmox_disk:
-      api_host: "{{ node_name }}.{{ domain }}"
+      api_host: "{{ node_name }}.{{ node_domain }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      vmid: "{{ vlan }}{{ id }}" 
+      vmid: "{{ vmid }}" 
       disk: scsi0
       size: "{{ disk | default(20)}}G"
       state: resized
@@ -80,8 +84,8 @@
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}.{{ domain }}"
-      vmid: "{{ vlan }}{{ id }}"
+      api_host: "{{ node_name }}.{{ node_domain }}"
+      vmid: "{{ vmid }}"
       state: "{{ state | default('started') }}"
     register: newState
 

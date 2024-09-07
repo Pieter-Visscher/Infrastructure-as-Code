@@ -1,10 +1,7 @@
 node_name: prox01
-domain: pieter.fish
+node_domain: pieter.fish
 storage: local-zfs
 format: raw
-subnet: 10.1
 cidr: 24
 gateway: 1
 bridge: vmbr0
-debian: 9998
-alma: 9999
