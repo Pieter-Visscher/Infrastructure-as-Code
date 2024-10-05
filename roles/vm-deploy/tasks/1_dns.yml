@@ -7,8 +7,8 @@
       body_format: json
       body:
         type: "A"
-        name: "{{ inventory_hostname}}"
-        content: "{{ subnet }}.{{ vlan }}.{{ id }}"
+        name: "{{ hostname }}"
+        content: "{{ ip }}"
         ttl: 1
         proxied: false
     register: create_dns_record

@@ -37,7 +37,7 @@
       clone: template
       vmid: "{{ os_id }}" 
       newid: "{{ vmid }}"
-      name: "{{ inventory_hostname }}.{{ domain }}"
+      name: "{{ hostname }}"
       storage: "{{ storage }}"
       format: "{{ format }}"
       timeout: 120

@@ -36,11 +36,11 @@ ungrouped:         #
 #      id: 6
 #      disk: 50
 
-    wireguard.pieter.fish:
-      vlan: 99
-      id: 10
-      zabbix: enabled
-      ip: 10.1.99.10
+#    wireguard.pieter.fish:
+#      vlan: 99
+#      id: 10
+#      zabbix: enabled
+#      ip: 10.1.99.10
 #
 #    rex.awx.pieter.fish:
 #      vlan: 50
@@ -68,6 +68,9 @@ ungrouped:         #
 #      cpu: 8
 #      disk: 60
 #
+    ansible-test.pieter.fish:
+      ip: 10.1.100.99
+
 #####################
 #zabbix:            #
 #  hosts:           #
