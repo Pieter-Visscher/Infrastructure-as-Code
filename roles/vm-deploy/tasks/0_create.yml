@@ -49,6 +49,7 @@
       api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}.{{ node_domain }}"
       vmid: "{{ vmid }}"
+      name: "{{ hostname }}"
       cores: "{{ cpu | default(4) }}"
       memory: "{{ memory | default(4096) }}"
       ipconfig: 
