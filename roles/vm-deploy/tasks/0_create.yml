@@ -47,7 +47,7 @@
       node: "{{ node_name }}"
       api_user: "{{ user }}"
       api_password: "{{ ansible_password }}"
-      api_host: "{{ node_name }}.{{ domain }}"
+      api_host: "{{ node_name }}.{{ node_domain }}"
       vmid: "{{ vmid }}"
       cores: "{{ cpu | default(4) }}"
       memory: "{{ memory | default(4096) }}"
