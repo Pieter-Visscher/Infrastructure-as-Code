@@ -197,18 +197,21 @@ nick:              #
       id: 12
       custom_root_password: "{{ vaulted_nick_password }}"
       zabbix: enabled
-
+      state: stopped
+      
     nick-mail.pieter.fish:
       vlan: 101
       id: 13
       custom_root_password: "{{ vaulted_nick_password }}"
       zabbix: enabled
+      state: stopped
 
     nick-mail-test.pieter.fish:
       vlan: 101
       id: 14
       custom_root_password: "{{ vaulted_nick_password }}"
       zabbix: enabled
+      state: stopped
 
 
 ####################
@@ -227,7 +230,8 @@ OKD:               #
       vlan: 104
       id: 3
       disk: 120
-      memory: 16384 
+      memory: 16384
+      state: stopped
 
     master00.okd.pieter.fish:
       vlan: 104
