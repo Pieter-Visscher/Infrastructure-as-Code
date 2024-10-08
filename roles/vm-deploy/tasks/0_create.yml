@@ -16,7 +16,7 @@
 
   - name: set subnet
     ansible.builtin.set_fact: 
-      subnet: "{{ ip.split('.')[0:3]  join('.') }}"
+      subnet: "{{ ip.split('.')[0:3] | join('.') }}"
 
   - name: debug ip info
     ansible.builtin.debug:
