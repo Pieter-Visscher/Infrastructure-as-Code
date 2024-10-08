@@ -18,6 +18,10 @@
     ansible.builtin.set_fact: 
       subnet: "{{ ip.split('.')[0:3] }}"
 
+  - name: debug ip info
+    ansible.builtin.debug:
+      msg: "ip={{ ip }}/{{ cidr }},gw={{ subnet }}.{{ gateway }}"
+
   - name: define os_id for Debian 
     ansible.builtin.set_fact:
       os_id: 9998
@@ -49,7 +53,6 @@
       api_password: "{{ ansible_password }}"
       api_host: "{{ node_name }}.{{ node_domain }}"
       vmid: "{{ vmid }}"
-      name: "{{ hostname }}"
       cores: "{{ cpu | default(4) }}"
       memory: "{{ memory | default(4096) }}"
       ipconfig: 
