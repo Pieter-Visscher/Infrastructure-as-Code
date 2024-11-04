@@ -75,6 +75,12 @@ ungrouped:         #
       memory: 8192
       cpu: 4
 
+    puppet-server.pieter.fish:
+      vlan: 105
+      id: 11
+      memory: 8192
+      cpu: 4
+
 ####################
 zabbix:            #
   hosts:           #
