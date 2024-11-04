@@ -72,12 +72,7 @@ ungrouped:         #
     puppet.pieter.fish:
       vlan: 105
       id: 10
-      memory: 8192
-      cpu: 4
-
-    puppet-server.pieter.fish:
-      vlan: 105
-      id: 11
+      os: Alma-Linux
       memory: 8192
       cpu: 4
 
