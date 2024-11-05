@@ -76,6 +76,11 @@ ungrouped:         #
       memory: 8192
       cpu: 4
 
+    puppet.pieter.fish:
+      vlan: 105
+      id: 20
+      os: Alma-Linux
+
 ####################
 zabbix:            #
   hosts:           #
