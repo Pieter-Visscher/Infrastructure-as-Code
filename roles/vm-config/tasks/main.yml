@@ -165,11 +165,10 @@
 - name: reboot
   ansible.builtin.reboot:
     reboot_timeout: 300
-  when: cloudInitConfigState.changed
 
- - name: wait for puppet agent to notify puppet server
-   ansible.builtin.wait_for:
-     timeout: 30
+- name: wait for puppet agent to notify puppet server
+  ansible.builtin.wait_for:
+    timeout: 30
 
 - name: Store the original ansible_host
   set_fact:
