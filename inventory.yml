@@ -86,6 +86,8 @@ ungrouped:         #
       id: 14
       disk: 50
       os: Alma-Linux
+      cpu: 8
+      memory: 8192
 
     logstash.pieter.fish:
       vlan: 50
