@@ -59,7 +59,7 @@
   register: puppet_state
 
 - name: add puppet repository on alma
-  ansible.builtin.rpm:
+  ansible.builtin.dnf:
     name: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.rpm"
     state: present
   when: ansible_facts['os_family'] == 'RedHat'
