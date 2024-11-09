@@ -54,10 +54,14 @@
 - name: debug shit
   ansible.builtin.debug:
     msg:  "https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
+  run_once: true
+  when: ansible_facts['os_family'] == "Debian"
 
 - name: debug shit
   ansible.builtin.debug:
     msg: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.rpm"
+  run_once: true
+  when: ansible_facts['os_family'] == 'RedHat'
 
 - name: Add Puppet repository for Debian
   ansible.builtin.apt:
