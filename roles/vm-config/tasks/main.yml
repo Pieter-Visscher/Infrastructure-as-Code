@@ -72,14 +72,14 @@
   ansible.builtin.apt:
     deb: "https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
   when: ansible_facts['os_family'] == "Debian"
-  register: puppet_state
+  register: puppet_state_deb
 
 - name: add puppet repository on alma
   ansible.builtin.dnf:
     name: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.rpm"
     state: present
   when: ansible_facts['os_family'] == 'RedHat'
-  register: puppet_state
+  register: puppet_state_alma
 
 - name: restart sshd
   ansible.builtin.systemd_service:
@@ -169,16 +169,17 @@
 
 - name: debug puppet_state
   ansible.builtin.debug:
-    msg: "{{ puppet_state }}"
+    msg: "{{ puppet_state_deb }}"
+
 - name: accept CSR on puppet server
   ansible.builtin.command: puppetserver ca sign --certname "{{ ansible_host }}"
-  when: puppet_state.changed
+  when: puppet_state_deb.changed or puppet_state_alma.changed
   delegate_to: puppet.pieter.fish
 
 - name: create yaml in hiera
   ansible.builtin.file:
     path: "/etc/puppetlabs/code/environments/production/data/nodes/{{ ansible_host }}.yaml"
-    state: file
+    state: touch
     owner: root
     group: root
     mode: '0644'
