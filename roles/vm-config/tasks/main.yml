@@ -155,7 +155,6 @@
   ansible.builtin.systemd_service:
     name: puppet.service
     enabled: true
-    state: restarted
 
 - name: reboot
   ansible.builtin.reboot:
