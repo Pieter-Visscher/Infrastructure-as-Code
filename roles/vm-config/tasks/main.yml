@@ -51,6 +51,20 @@
   - sshConfigState.changed
   - ansible_facts['os_family'] == 'Debian'
 
+- name: Add Puppet repository for Debian
+  ansible.builtin.apt_repository:
+    repo: "deb-src https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+  register: puppet_state
+
+- name: add puppet repository on alma
+  ansible.builtin.rpm:
+    name: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.rpm"
+    state: present
+  when: ansible_facts['os_family'] == 'RedHat'
+  register: puppet_state
+
 - name: restart sshd
   ansible.builtin.systemd_service:
     name: sshd.service
@@ -76,6 +90,9 @@
     - lsof
     - mlocate
     - qemu-guest-agent
+    - vim
+    - wget
+    - puppet-agent
   when: ansible_facts['os_family'] == 'Debian'
 
 - name: update cache dnf
@@ -105,6 +122,9 @@
     - lsof
     - mlocate
     - qemu-guest-agent
+    - vim
+    - wget
+    - puppet-agent
   when: ansible_facts['os_family'] == 'RedHat'
 
 - name: enable qemu guest agent 
@@ -113,7 +133,26 @@
     state: started 
     enabled: true
 
+- name: enable pupppet agent
+  ansible.builtin.systemd_service:
+    name: puppet.service
+    state: started 
+    enabled: true
+
 - name: reboot
   ansible.builtin.reboot:
     reboot_timeout: 300
   when: cloudInitConfigState.changed
+
+- name: accept CSR on puppet server
+  ansible.builtin.command: puppetserver ca sign --certname "{{ ansible_host }}"
+  when: puppet_state.changed
+  delegate_to: puppet.pieter.fish
+
+- name: create yaml in hiera
+  ansible.builtin.file:
+    path: "/etc/puppetlabs/code/environments/production/data/nodes/{{ ansible_host }}.yaml"
+    state: present
+    owner: root
+    group: root
+    mode: '0644'
