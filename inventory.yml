@@ -99,7 +99,7 @@ zabbix:            #
   hosts:           #
 ####################
 
-    zbx-proxy-htz01.pvisscher.nl.pieter.fish:
+    zbx-proxy-htz01.pieter.fish:
       vlan: 50
       id: 11
       disk: 30
