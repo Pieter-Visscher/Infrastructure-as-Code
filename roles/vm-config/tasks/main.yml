@@ -182,7 +182,7 @@
 
 - name: create yaml in hiera
   ansible.builtin.file:
-    path: "/etc/puppetlabs/code/environments/production/data/nodes/{{ ansible_host }}.yaml"
+    path: /etc/puppetlabs/code/environments/production/data/nodes/"{{ ansible_host }}".yaml
     state: touch
     owner: root
     group: root
