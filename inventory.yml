@@ -76,6 +76,10 @@ ungrouped:         #
       memory: 8192
       cpu: 4
 
+    puppet-test.pieter.fish:
+      vlan: 105
+      id: 21
+
     puppet-client.pieter.fish:
       vlan: 105
       id: 20
