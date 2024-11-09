@@ -63,11 +63,6 @@
   run_once: true
   when: ansible_facts['os_family'] == 'RedHat'
 
-- name: remove puppet
-  ansible.builtin.apt:
-    pkg: puppet7-release
-    state: absent
-
 - name: Add Puppet repository for Debian
   ansible.builtin.apt:
     deb: "https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
@@ -180,6 +175,7 @@
   ansible.builtin.command: /opt/puppetlabs/bin/puppetserver ca sign --certname "{{ original_ansible_host }}"
   when: puppet_state_deb.changed or puppet_state_alma.changed
   delegate_to: puppet.pieter.fish
+  ignore_errors: true
 
 - name: create yaml in hiera
   ansible.builtin.file:
