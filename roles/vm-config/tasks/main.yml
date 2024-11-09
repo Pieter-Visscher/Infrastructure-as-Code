@@ -143,7 +143,7 @@
     - puppet-agent
   when: ansible_facts['os_family'] == 'RedHat'
 
-- name: lock down ssh-access 
+- name: set puppet config
   ansible.builtin.blockinfile:
     path: /etc/ssh/sshd_config
     block: |
@@ -160,12 +160,16 @@
   ansible.builtin.systemd_service:
     name: puppet.service
     enabled: true
+    restarted: true
 
 - name: reboot
   ansible.builtin.reboot:
     reboot_timeout: 300
   when: cloudInitConfigState.changed
 
+- name: debug puppet_state
+  ansible.builtin.debug:
+    msg: "{{ puppet_state }}"
 - name: accept CSR on puppet server
   ansible.builtin.command: puppetserver ca sign --certname "{{ ansible_host }}"
   when: puppet_state.changed
@@ -174,7 +178,7 @@
 - name: create yaml in hiera
   ansible.builtin.file:
     path: "/etc/puppetlabs/code/environments/production/data/nodes/{{ ansible_host }}.yaml"
-    state: present
+    state: file
     owner: root
     group: root
     mode: '0644'
