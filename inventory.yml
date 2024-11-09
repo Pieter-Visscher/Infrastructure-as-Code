@@ -85,10 +85,12 @@ ungrouped:         #
       vlan: 50
       id: 14
       disk: 50
+      os: Alma-Linux
 
     logstash.pieter.fish:
       vlan: 50
       id: 15
+      os: Alma-Linux
 
 ####################
 zabbix:            #
