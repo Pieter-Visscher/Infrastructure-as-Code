@@ -51,10 +51,17 @@
   - sshConfigState.changed
   - ansible_facts['os_family'] == 'Debian'
 
+- name: debug shit
+  ansible.builtin.debug:
+    msg:  "https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
+
+- name: debug shit
+  ansible.builtin.debug:
+    msg: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.rpm"
+
 - name: Add Puppet repository for Debian
-  ansible.builtin.apt_repository:
-    repo: "deb-src https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
-    state: present
+  ansible.builtin.apt:
+    deb: "https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
   when: ansible_facts['os_family'] == "Debian"
   register: puppet_state
 
