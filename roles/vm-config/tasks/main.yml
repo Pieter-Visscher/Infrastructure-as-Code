@@ -63,9 +63,9 @@
   run_once: true
   when: ansible_facts['os_family'] == 'RedHat'
 
-- name: remove inpropper puppet repo
-  ansible.builtin.file:
-    path: "/etc/apt/sources.list.d/puppet7-release.list"
+- name: remove puppet
+  ansible.builtin.apt:
+    pkg: puppet7-release
     state: absent
 
 - name: Add Puppet repository for Debian
@@ -160,7 +160,7 @@
   ansible.builtin.systemd_service:
     name: puppet.service
     enabled: true
-    restarted: true
+    state: restarted
 
 - name: reboot
   ansible.builtin.reboot:
