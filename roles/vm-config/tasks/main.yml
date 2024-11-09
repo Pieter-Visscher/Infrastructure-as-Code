@@ -63,6 +63,11 @@
   run_once: true
   when: ansible_facts['os_family'] == 'RedHat'
 
+- name: remove inpropper puppet repo
+  ansible.builtin.file:
+    path: "/etc/apt/sources.list.d/apt_puppet_com_puppet7_release_bookworm_deb.list"
+    state: absent
+
 - name: Add Puppet repository for Debian
   ansible.builtin.apt:
     deb: "https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
