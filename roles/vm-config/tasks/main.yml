@@ -173,15 +173,15 @@
 
 - name: accept CSR on puppet server
   ansible.builtin.command: /opt/puppetlabs/bin/puppetserver ca sign --certname "{{ original_ansible_host }}"
-  when: puppet_state_deb.changed or puppet_state_alma.changed
+#  when: puppet_state_deb.changed or puppet_state_alma.changed
   delegate_to: puppet.pieter.fish
   ignore_errors: true
 
 - name: create yaml in hiera
   ansible.builtin.file:
-    path: /etc/puppetlabs/code/environments/production/data/nodes/"{{ ansible_host }}".yaml
+    path: "/etc/puppetlabs/code/environments/production/data/nodes/{{ original_ansible_host }}.yaml"
     state: touch
     owner: root
     group: root
     mode: '0644'
-  become: true
+  delegate_to: puppet.pieter.fish
