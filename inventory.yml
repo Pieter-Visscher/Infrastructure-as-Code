@@ -81,6 +81,15 @@ ungrouped:         #
       id: 20
       os: Alma-Linux
 
+    kibana.pieter.fish:
+      vlan: 50
+      id: 14
+      disk: 50
+
+    logstash.pieter.fish:
+      vlan: 50
+      id: 15
+
 ####################
 zabbix:            #
   hosts:           #
