@@ -127,6 +127,13 @@
     - puppet-agent
   when: ansible_facts['os_family'] == 'RedHat'
 
+- name: lock down ssh-access 
+  ansible.builtin.blockinfile:
+    path: /etc/ssh/sshd_config
+    block: |
+      [main]
+      server = puppet.pieter.fish
+
 - name: enable qemu guest agent 
   ansible.builtin.systemd_service:
     name: qemu-guest-agent.service
@@ -136,7 +143,6 @@
 - name: enable pupppet agent
   ansible.builtin.systemd_service:
     name: puppet.service
-    state: started 
     enabled: true
 
 - name: reboot
