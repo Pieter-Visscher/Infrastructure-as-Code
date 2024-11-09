@@ -118,7 +118,7 @@ webservers:        #
     immich.pieter.fish:
       vlan: 100
       id: 11
-      disk: 50
+      disk: 150
       memory: 8192
       zabbix: enabled
 
