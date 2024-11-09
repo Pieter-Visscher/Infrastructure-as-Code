@@ -171,8 +171,12 @@
   ansible.builtin.debug:
     msg: "{{ puppet_state_deb }}"
 
+- name: Store the original ansible_host
+  set_fact:
+    original_ansible_host: "{{ ansible_host }}"
+
 - name: accept CSR on puppet server
-  ansible.builtin.command: puppetserver ca sign --certname "{{ ansible_host }}"
+  ansible.builtin.command: puppetserver ca sign --certname "{{ original_ansible_host }}"
   when: puppet_state_deb.changed or puppet_state_alma.changed
   delegate_to: puppet.pieter.fish
 
