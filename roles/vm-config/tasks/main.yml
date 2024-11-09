@@ -167,9 +167,9 @@
     reboot_timeout: 300
   when: cloudInitConfigState.changed
 
-- name: debug puppet_state
-  ansible.builtin.debug:
-    msg: "{{ puppet_state_deb }}"
+ - name: wait for puppet agent to notify puppet server
+   ansible.builtin.wait_for:
+     timeout: 30
 
 - name: Store the original ansible_host
   set_fact:
