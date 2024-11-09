@@ -145,7 +145,7 @@
 
 - name: set puppet config
   ansible.builtin.blockinfile:
-    path: /etc/ssh/sshd_config
+    path: /etc/puppetlabs/puppet/puppet.conf 
     block: |
       [main]
       server = puppet.pieter.fish
