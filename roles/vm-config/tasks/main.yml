@@ -65,7 +65,7 @@
 
 - name: remove inpropper puppet repo
   ansible.builtin.file:
-    path: "/etc/apt/sources.list.d/apt_puppet_com_puppet7_release_bookworm_deb.list"
+    path: "/etc/apt/sources.list.d/puppet7-release.list"
     state: absent
 
 - name: Add Puppet repository for Debian
