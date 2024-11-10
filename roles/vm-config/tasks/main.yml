@@ -152,6 +152,7 @@
 - name: wait for puppet agent to notify puppet server
   ansible.builtin.wait_for:
     timeout: 30
+  when: puppet_state_deb.changed or puppet_state_alma.changed
 
 - name: Store the original ansible_host
   set_fact:
