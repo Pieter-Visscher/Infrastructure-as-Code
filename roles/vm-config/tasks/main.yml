@@ -1,4 +1,4 @@
- name: set default root password
+- name: set default root password
   ansible.builtin.user:
     name: root
     update_password: always
