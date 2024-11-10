@@ -51,18 +51,6 @@
   - sshConfigState.changed
   - ansible_facts['os_family'] == 'Debian'
 
-- name: debug shit
-  ansible.builtin.debug:
-    msg:  "https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
-  run_once: true
-  when: ansible_facts['os_family'] == "Debian"
-
-- name: debug shit
-  ansible.builtin.debug:
-    msg: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.rpm"
-  run_once: true
-  when: ansible_facts['os_family'] == 'RedHat'
-
 - name: Add Puppet repository for Debian
   ansible.builtin.apt:
     deb: "https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
@@ -71,7 +59,7 @@
 
 - name: add puppet repository on alma
   ansible.builtin.dnf:
-    name: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.rpm"
+    name: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: present
   when: ansible_facts['os_family'] == 'RedHat'
   register: puppet_state_alma
@@ -160,7 +148,6 @@
   ansible.builtin.reboot:
     reboot_timeout: 300
   when: cloudInitConfigState.changed
-
 
 - name: wait for puppet agent to notify puppet server
   ansible.builtin.wait_for:
