@@ -94,6 +94,11 @@ ungrouped:         #
       id: 15
       os: Alma-Linux
 
+    kafka.pieter.fish:
+      vlan: 50
+      id: 16
+      os: Alma-Linux
+
 ####################
 zabbix:            #
   hosts:           #
