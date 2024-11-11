@@ -76,19 +76,6 @@ ungrouped:         #
       memory: 8192
       cpu: 4
 
-    puppet-test.pieter.fish:
-      vlan: 105
-      id: 21
-
-    puppet-test2.pieter.fish:
-      vlan: 105
-      id: 22
-
-    puppet-test3.pieter.fish:
-      vlan: 105
-      id: 23
-      os: Alma-Linux
-
     puppet-client.pieter.fish:
       vlan: 105
       id: 20
