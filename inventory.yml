@@ -105,7 +105,7 @@ ungrouped:         #
 
     zabbix-test2.pieter.fish:
       vlan: 100
-      id: 30
+      id: 31
       os: Alma-Linux
 
 ####################
