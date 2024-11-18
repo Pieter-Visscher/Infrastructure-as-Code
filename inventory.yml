@@ -99,6 +99,15 @@ ungrouped:         #
       id: 16
       os: Alma-Linux
 
+    zabbix-test.pieter.fish:
+      vlan: 100
+      id: 30
+
+    zabbix-test2.pieter.fish:
+      vlan: 100
+      id: 30
+      os: Alma-Linux
+
 ####################
 zabbix:            #
   hosts:           #
