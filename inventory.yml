@@ -112,10 +112,9 @@ ungrouped:         #
       vlan: 100
       id: 18
 
-    zabbix-test.pieter.fish:
+    zabbix-server-test.pieter.fish:
       vlan: 100
       id: 19
-
 ####################
 zabbix:            #
   hosts:           #
