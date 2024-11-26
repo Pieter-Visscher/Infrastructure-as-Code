@@ -108,6 +108,10 @@ ungrouped:         #
       id: 31
       os: Alma-Linux
 
+    haproxy-test.pieter.fish:
+      vlan: 100
+      id: 18
+
 ####################
 zabbix:            #
   hosts:           #
