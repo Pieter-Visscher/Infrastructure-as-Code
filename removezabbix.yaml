@@ -1,0 +1,11 @@
+- hosts: all 
+  become: yes 
+  gather_facts: no
+  tasks:
+  - name: install gpg
+    ansible.builtin.apt:
+      name: gpg
+      state: present
+
+  - name: restart things
+    ansible.builtin.command: /opt/puppetlabs/bin/puppet agent -t

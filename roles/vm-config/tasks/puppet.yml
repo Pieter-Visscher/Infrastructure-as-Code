@@ -1,0 +1,80 @@
+- hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: add gpg key
+      ansible.builtin.rpm_key:
+        state: present
+        key: "https://yum.puppet.com/RPM-GPG-KEY-puppet"
+    
+    - name: add puppet repository on alma
+      ansible.builtin.dnf:
+        name: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.noarch.rpm"
+        state: present
+    
+    - name: update cache dnf
+      ansible.builtin.dnf:
+        update_cache: yes
+    
+    - name: install epel release
+      ansible.builtin.dnf:
+        name: epel-release
+    
+    - name: update cache dnf
+      ansible.builtin.dnf:
+        update_cache: yes
+    
+    - name: install applications via dnf
+      ansible.builtin.dnf:
+        pkg:
+        - tree
+        - unzip
+        - git
+        - htop
+        - net-tools 
+        - ncdu
+        - lsof
+        - mlocate
+        - qemu-guest-agent
+        - vim
+        - wget
+        - puppet-agent
+    
+    - name: set puppet config
+      ansible.builtin.blockinfile:
+        path: /etc/puppetlabs/puppet/puppet.conf 
+        block: |
+          [main]
+          server = puppet.pieter.fish
+    
+    - name: enable pupppet agent
+      ansible.builtin.systemd_service:
+        name: puppet.service
+        enabled: true
+        state: restarted
+    
+    - name: add puppet host
+      ansible.builtin.add_host:
+        hostname: puppet.pieter.fish
+
+    - name: wait for puppet agent to notify puppet server
+      ansible.builtin.wait_for:
+        timeout: 30
+    
+    - name: Store the original ansible_host
+      set_fact:
+        original_ansible_host: "{{ ansible_host }}"
+    
+    - name: accept CSR on puppet server
+      ansible.builtin.command: /opt/puppetlabs/bin/puppetserver ca sign --certname "{{ original_ansible_host }}"
+      delegate_to: puppet.pieter.fish
+    
+    - name: create yaml in hiera
+      ansible.builtin.file:
+        path: "/etc/puppetlabs/code/environments/production/data/nodes/{{ original_ansible_host }}.yaml"
+        state: touch
+        owner: root
+        group: root
+        mode: '0644'
+      delegate_to: puppet.pieter.fish
+    
