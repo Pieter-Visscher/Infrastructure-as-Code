@@ -99,10 +99,6 @@ ungrouped:         #
       id: 16
       os: Alma-Linux
 
-    rundeck.pieter.fish:
-      vlan: 50
-      id: 17
-
     zabbix-test.pieter.fish:
       vlan: 100
       id: 30
