@@ -21,9 +21,9 @@
 - name: hold kubernetes components
   ansible.builtin.dpkg_selections:
     name:
-    - kubeadm
-    - kubectl
-    - kubelet
+      - kubeadm
+      - kubectl
+      - kubelet
     selection: hold
 
 - name: enable kubelet
