@@ -25,4 +25,4 @@
 
   - import_tasks: 3_bootstrap_cluster.yml
 
-  - import_tasks: 4_installing_cilium.yml
+#  - import_tasks: 4_installing_cilium.yml
