@@ -4,7 +4,7 @@
     state: present
     keyring: /etc/apt/keyrings/cri-o-apt-keyring.gpg
 
-- name: add k8s apt repository
+- name: add cri-o apt repository
   ansible.builtin.apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/stable:/{{ release }}/deb/ /"
     state: present
