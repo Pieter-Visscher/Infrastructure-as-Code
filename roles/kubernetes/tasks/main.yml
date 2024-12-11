@@ -11,6 +11,8 @@
 
   - import_tasks: 0_system_prep.yml
 
+  - ansible.builtin.debug:
+    msg: "{{ release }}"
   - import_tasks: 1_install_kubernetes_core_rhel.yml
     when: ansible_facts['os_family'] == 'RedHat'
 
