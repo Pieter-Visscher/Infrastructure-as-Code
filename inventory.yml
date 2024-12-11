@@ -217,6 +217,9 @@ kubernetes:        #
       vlan: 103
       id: 50
       kubernetes: enabled
+      role: master
+      bootstrap: true
+      release: v1.31
 
 ####################
 docker:            #
