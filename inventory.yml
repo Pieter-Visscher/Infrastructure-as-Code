@@ -213,15 +213,9 @@ kubernetes:        #
       disk: 50
       memory: 8192
 
-    test-deb-node.pieter.fish:
+    kube02-master-00.pieter.fish:
       vlan: 103
-      id: 30
-      state: stopped
-
-    test-k3s.pieter.fish:
-      vlan: 103
-      id: 31
-      state: stopped
+      id: 50
 
 ####################
 docker:            #
