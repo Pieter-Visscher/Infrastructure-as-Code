@@ -2,6 +2,7 @@
   ansible.builtin.apt_key:
     url: https://pkgs.k8s.io/core:/stable:/{{ release }}/deb/Release.key
     state: present
+    file: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
 - name: add k8s apt repository
   ansible.builtin.apt_repository:
