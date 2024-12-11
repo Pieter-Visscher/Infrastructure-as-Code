@@ -51,6 +51,8 @@
     - name: install kubernetes core
       import_role:
         name: kubernetes
-      when: kubernetes is defined 
+      when: 
+        - kubernetes is defined 
+        - kubernetes == "enabled"
       tags: kubernetes
 

@@ -216,6 +216,7 @@ kubernetes:        #
     kube02-master-00.pieter.fish:
       vlan: 103
       id: 50
+      kubernetes: enabled
 
 ####################
 docker:            #

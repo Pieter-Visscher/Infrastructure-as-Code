@@ -24,27 +24,27 @@
     group: ansible
     mode: 0600
 
-- name: creating kubectl dir for root users
-  ansible.builtin.file:
-    path: /root/.kube
-    state: directory
-    mode: 0755
-    owner: root 
-    group: root
+#- name: creating kubectl dir for root users
+#  ansible.builtin.file:
+#    path: /root/.kube
+#    state: directory
+#    mode: 0755
+#    owner: root 
+#    group: root
 
-- name: configure kubectl for root 
-  ansible.builtin.copy:
-    src: /etc/kubernetes/admin.conf
-    dest: /root/.kube/config
-    remote_src: yes
-    owner: root 
-    group: root
-    mode: 0600
+#- name: configure kubectl for root 
+#  ansible.builtin.copy:
+#    src: /etc/kubernetes/admin.conf
+#    dest: /root/.kube/config
+#    remote_src: yes
+#    owner: root 
+#    group: root
+#    mode: 0600
 
-- name: remove NoSchedule taint from kubernetes node
-  kubernetes.core.k8s_taint:
-    state: absent
-    name: "{{ ansible_fqdn }}"
-    taints:
-    - effect: NoSchedule
-      key: node-role.kubernetes.io/control-plane
+#- name: remove NoSchedule taint from kubernetes node
+#  kubernetes.core.k8s_taint:
+#    state: absent
+#    name: "{{ ansible_fqdn }}"
+#    taints:
+#    - effect: NoSchedule
+#      key: node-role.kubernetes.io/control-plane
