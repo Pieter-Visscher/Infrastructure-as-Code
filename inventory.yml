@@ -103,10 +103,6 @@ ungrouped:         #
       vlan: 50
       id: 17
 
-    gitea.pieter.fish:
-      vlan: 50
-      id: 18
-
     zabbix-test.pieter.fish:
       vlan: 100
       id: 30
