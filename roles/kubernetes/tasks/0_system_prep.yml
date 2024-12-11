@@ -86,18 +86,18 @@
     state: present
     sysctl_file: /etc/sysctl.d/k8s.conf
 
-- name: check if helm is installed
-  ansible.builtin.stat:
-    path: /usr/local/bin/helm
-  register: helm_status 
-
-- name: download helm install script
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-    dest: /root/get-helm-3.sh
-    mode: 0700
-  when: not helm_status.stat.exists
-
-- name: install helm
-  ansible.builtin.shell: bash /root/get-helm-3.sh
-  when: not helm_status.stat.exists
+#- name: check if helm is installed
+#  ansible.builtin.stat:
+#    path: /usr/local/bin/helm
+#  register: helm_status 
+#
+#- name: download helm install script
+#  ansible.builtin.get_url:
+#    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+#    dest: /root/get-helm-3.sh
+#    mode: 0700
+#  when: not helm_status.stat.exists
+#
+#- name: install helm
+#  ansible.builtin.shell: bash /root/get-helm-3.sh
+#  when: not helm_status.stat.exists
