@@ -26,15 +26,16 @@
       - ethtool
       - iptables
       - socat
-      - pip
     state: present
   when: ansible_facts['os_family'] == 'Debian'
 
-- name: ensure pip modules are installed
-  ansible.builtin.pip:
+- name: install dependencies
+  ansible.builtin.apt:
     name:
-      - pyyaml
-      - kubernetes 
+      - python3-kubernetes
+      - python3-yaml
+    state: present
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: check if csf exists
   ansible.builtin.stat:
