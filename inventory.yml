@@ -31,12 +31,6 @@ ungrouped:         #
 #      disk: 32
 #      deploy: false
 
-    kube-bck.pieter.fish:
-      vlan: 103
-      id: 6
-      disk: 50
-      state: stopped
-
     wireguard.pieter.fish:
       vlan: 99
       id: 10
@@ -54,21 +48,6 @@ ungrouped:         #
       os: Alma-Linux
       ansible_managed: false
 
-    steam.pieter.fish:
-      vlan: 102
-      id: 10
-      memory: 16384
-      disk: 30
-      state: stopped
-
-    minecraft-david.pieter.fish:
-      vlan: 100
-      id: 10
-      memory: 32768
-      cpu: 8
-      disk: 60
-      state: stopped
-
     puppet.pieter.fish:
       vlan: 105
       id: 10
@@ -81,44 +60,10 @@ ungrouped:         #
       id: 20
       os: Alma-Linux
 
-    kibana.pieter.fish:
-      vlan: 50
-      id: 14
-      disk: 50
-      os: Alma-Linux
-      cpu: 8
-      memory: 8192
-
-    logstash.pieter.fish:
-      vlan: 50
-      id: 15
-      os: Alma-Linux
-
-    kafka.pieter.fish:
-      vlan: 50
-      id: 16
-      os: Alma-Linux
-
     rundeck.pieter.fish:
       vlan: 50
       id: 17
 
-    zabbix-test.pieter.fish:
-      vlan: 100
-      id: 30
-
-    zabbix-test2.pieter.fish:
-      vlan: 100
-      id: 31
-      os: Alma-Linux
-
-    haproxy-test.pieter.fish:
-      vlan: 100
-      id: 18
-
-    zabbix-server-test.pieter.fish:
-      vlan: 100
-      id: 19
 ####################
 zabbix:            #
   hosts:           #
@@ -213,13 +158,19 @@ kubernetes:        #
       disk: 50
       memory: 8192
 
-    kube02-master-00.pieter.fish:
-      vlan: 103
-      id: 50
-      kubernetes: enabled
-      role: master
-      bootstrap: true
-      release: v1.31
+#####################
+#eva:               #
+#  hosts:           #
+#####################
+#
+#    eva--00.?.local:
+#      vlan: 106
+#      id: 10
+#      kubernetes: enabled
+#      role: master
+#      bootstrap: true
+#      release: v1.31
+#      api_endpoint: api.eva.?.local
 
 ####################
 docker:            #

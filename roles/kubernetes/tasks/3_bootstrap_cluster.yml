@@ -4,7 +4,7 @@
   register: cluster_status
 
 - name: bootstrapping master node 
-  ansible.builtin.shell: kubeadm init --pod-network-cidr={{ pod_cidr }} --service-cidr={{ service_cidr }}
+  ansible.builtin.shell: kubeadm init --pod-network-cidr={{ pod_cidr }} --service-cidr={{ service_cidr }} --control-plane-endpoint={{ api_endpoint }}
   when: not cluster_status.stat.exists
 
 - name: creating kubectl dir for ansible users
