@@ -48,6 +48,10 @@ ungrouped:         #
       os: Alma-Linux
       ansible_managed: false
 
+    netbox-psql.pieter.fish:
+      vlan: 103
+      id: 8
+
     puppet.pieter.fish:
       vlan: 105
       id: 10
@@ -183,10 +187,6 @@ docker:            #
       disk: 30
       zabbix: enabled
 
-    netbox-psql.pieter.fish:
-      vlan: 103
-      id: 8
-    
 ####################
 nick:              #
   hosts:           #
