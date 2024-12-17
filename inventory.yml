@@ -232,6 +232,10 @@ docker:            #
       disk: 30
       zabbix: enabled
 
+    netbox-psql.pieter.fish:
+      vlan: 103
+      id: 06
+    
 ####################
 nick:              #
   hosts:           #
