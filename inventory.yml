@@ -234,7 +234,7 @@ docker:            #
 
     netbox-psql.pieter.fish:
       vlan: 103
-      id: 06
+      id: 08
     
 ####################
 nick:              #
