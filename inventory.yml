@@ -45,6 +45,7 @@ ungrouped:         #
     idm.nauvis.lan:
       vlan: 50
       id: 14
+      os: Alma-Linux
       ansible_host: 10.1.50.14
 
     hop.awx.pieter.fish:
