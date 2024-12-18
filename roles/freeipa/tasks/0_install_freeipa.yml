@@ -1,0 +1,8 @@
+- name: install freeipa 
+  ansible.builtin.dnf:
+    name: 
+      - freeipa-server
+      - freeipa-server-dns
+
+- name: install freeipa-server
+  ansible.builtin.command: ipa-server-install -n {{ ipa.domain }} -r {{ ipa.realm}} -a {{ ipa.admin.password }} -p {{ ipa.dm.password }} --mkhomedir --hostname={{ inventory_hostname }} --ip-address={{ ansible_facts.ansible_default_ipv4.address }} --no-ntp  --setup-dns --forwarder=1.1.1.1
