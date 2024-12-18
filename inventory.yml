@@ -51,8 +51,8 @@ ungrouped:         #
       ipa:
         domain: nauvis.lan
         realm: NAUVIS.LAN
-        admin.password: test
-        dm.password: test
+        admin_password: test
+        dm_password: test
 
 
     hop.awx.pieter.fish:
