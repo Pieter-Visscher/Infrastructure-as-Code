@@ -48,10 +48,12 @@ ungrouped:         #
       os: Alma-Linux
       ansible_host: 10.1.50.14
       freeipa: enabled
-      ipa.domain: nauvis.lan
-      ipa.realm: NAUVIS.LAN
-      ipa.admin.password: test
-      ipa.dm.password: test
+      ipa:
+        domain: nauvis.lan
+        realm: NAUVIS.LAN
+        admin.password: test
+        dm.password: test
+
 
     hop.awx.pieter.fish:
       vlan: 103
