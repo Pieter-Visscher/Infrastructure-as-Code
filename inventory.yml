@@ -42,9 +42,10 @@ ungrouped:         #
       os: Alma-Linux
       ansible_managed: false
 
-    ad.nauvis.lan:
+    idm.nauvis.lan:
       vlan: 50
       id: 14
+      ansible_host: 10.1.50.14
 
     hop.awx.pieter.fish:
       vlan: 103
