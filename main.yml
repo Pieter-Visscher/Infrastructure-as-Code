@@ -56,3 +56,12 @@
         - kubernetes == "enabled"
       tags: kubernetes
 
+    # INSTALL FREEIPA ON IDM NODES 
+    - name: install freeipa 
+      import_role:
+        name: freeipa
+      when: 
+        - freeipa is defined 
+        - freeipa == "enabled"
+      tags: freeipa 
+
