@@ -1,0 +1,19 @@
+- name: configure acl
+  ansible.builtin.blockinfile:
+    path: /etc/named/ipa-ext.conf
+    block: |
+      acl "trusted_network" {
+        10.0.0.0/8;
+      };
+
+- name: configure allow rules
+  ansible.builtin.blockinfile:
+    path: /etc/named/ipa-options-ext.conf
+    block: |
+      allow-recursion { trusted_network; };
+      allow-query-cache { trusted_network; };
+
+- name: restart named
+  ansible.builtin.systemd_service:
+    name: named
+    state: restarted

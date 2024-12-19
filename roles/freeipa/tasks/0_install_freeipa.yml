@@ -11,10 +11,16 @@
     replace: "{{ ansible_facts.default_ipv4.address }}"
 
 - name: replace localhost with interface ip 
-  ansible.builtin.replace:
+  ansible.builtin.lineinfile:
     path: /etc/hosts
     regexp: ^\:\:1(?= {{ inventory_hostname }})
     state: absent
 
 - name: install freeipa-server
   ansible.builtin.command: ipa-server-install -n {{ ipa.domain }} -r {{ ipa.realm}} -a {{ ipa.admin_password }} -p {{ ipa.dm_password }} --mkhomedir --hostname={{ inventory_hostname }} --ip-address={{ ansible_facts.default_ipv4.address }} --no-ntp  --setup-dns --forwarder=1.1.1.1 -U
+  register: ipa_install_result
+  failed_when: >
+    ipa_install_result.rc != 0 and
+    "IPA server is already configured on this system" not in ipa_install_result.stderr
+  changed_when: >
+   'IPA server is already configured on this system' not in ipa_install_result.stderr
