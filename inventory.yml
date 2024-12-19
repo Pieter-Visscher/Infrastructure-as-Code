@@ -54,6 +54,11 @@ ungrouped:         #
         admin_password: test
         dm_password: test
 
+    mfa.pieter.fish:
+      vlan: 100
+      id: 13
+      os: Alma-Linux
+      ansible_host: 10.1.100.13
 
     hop.awx.pieter.fish:
       vlan: 103
