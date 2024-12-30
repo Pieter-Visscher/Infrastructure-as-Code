@@ -7,9 +7,25 @@
       body_format: json
       body:
         type: "A"
-        name: "{{ inventory_hostname}}"
+        name: "{{ inventory_hostname}}.{{ domain }}"
         content: "{{ subnet }}.{{ vlan }}.{{ id }}"
         ttl: 1
         proxied: false
     register: create_dns_record
     ignore_errors: true
+    when: {{ domain }} == pieter.fish
+
+  - name: set variables for freeipa:
+
+  - name: create dns a record
+    freeipa.ansible_freeipa.ipadnsrecord:
+      ipa_server: "{{ inventory_hostname }}"
+      ipaadmin_password: "{{ ipa.admin_password }}"
+      name: "{{ client_hostname }}"
+      type: "A"
+      record_value: "{{ subnet }}.{{ vlan }}.{{ id }}"
+      zone_name: "{{ ipa.domain }}"
+    delegate_to: idm.nauvis.lan
+    when: domain == "nauvis.lan"
+      
+

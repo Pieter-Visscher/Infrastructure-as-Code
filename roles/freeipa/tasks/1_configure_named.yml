@@ -1,4 +1,4 @@
-- name: configure acl
+- name: configure acl to allow dns from local network 
   ansible.builtin.blockinfile:
     path: /etc/named/ipa-ext.conf
     block: |
