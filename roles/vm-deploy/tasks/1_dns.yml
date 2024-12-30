@@ -13,7 +13,7 @@
         proxied: false
     register: create_dns_record
     ignore_errors: true
-    when: {{ domain }} == pieter.fish
+    when: domain == pieter.fish
 
   - name: set variables for freeipa:
     ansible.builtin.set_fact:
