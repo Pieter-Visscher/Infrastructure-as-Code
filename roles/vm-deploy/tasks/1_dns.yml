@@ -15,23 +15,23 @@
       body_format: json
       body:
         type: "A"
-        name: "{{ client_hostname }}.{{ client_domain }}"
+        name: "{{ inventory_hostname }}"
         content: "{{ subnet }}.{{ vlan }}.{{ id }}"
         ttl: 1
         proxied: false
     register: create_dns_record
     ignore_errors: true
-    when: client_domain == "pieter.fish"
+    when: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3') }}" == "pieter.fish"
 
   - name: create dns a record
     freeipa.ansible_freeipa.ipadnsrecord:
       ipa_server: "idm.nauvis.lan"
       ipaadmin_password: "{{ ipa.admin_password }}"
-      name: "{{ client_hostname }}"
+      name: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\2') }}"
       type: "A"
       record_value: "{{ subnet }}.{{ vlan }}.{{ id }}"
       zone_name: "{{ ipa.domain }}"
     delegate_to: idm.nauvis.lan
-    when: client_domain == "nauvis.lan"
+    when: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3') }}"  == "nauvis.lan"
       
 
