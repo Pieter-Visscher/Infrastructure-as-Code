@@ -16,7 +16,9 @@
     when: {{ domain }} == pieter.fish
 
   - name: set variables for freeipa:
-
+    ansible.builtin.set_fact:
+      client_hostname: "{{ inventory_hostname }}"
+      
   - name: create dns a record
     freeipa.ansible_freeipa.ipadnsrecord:
       ipa_server: "{{ inventory_hostname }}"
