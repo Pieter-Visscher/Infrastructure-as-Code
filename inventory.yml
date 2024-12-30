@@ -60,11 +60,9 @@ ungrouped:         #
       os: Alma-Linux
       ansible_host: 10.1.100.13
 
-    idm-client:
+    idm-client.nauvis.lan:
       vlan: 100
       id: 14
-      domain: nauvis.lan
-
 
     hop.awx.pieter.fish:
       vlan: 103
