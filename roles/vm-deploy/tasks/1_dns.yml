@@ -18,6 +18,8 @@
   - name: set variables for freeipa
     ansible.builtin.set_fact:
       client_hostname: "{{ inventory_hostname }}"
+      client_domain: "{{ domain }}"
+    when: domain == "nauvis.lan"
       
   - name: create dns a record
     freeipa.ansible_freeipa.ipadnsrecord:
@@ -28,6 +30,6 @@
       record_value: "{{ subnet }}.{{ vlan }}.{{ id }}"
       zone_name: "{{ ipa.domain }}"
     delegate_to: idm.nauvis.lan
-    when: domain == "nauvis.lan"
+    when: client_domain == "nauvis.lan"
       
 
