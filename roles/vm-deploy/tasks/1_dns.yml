@@ -1,7 +1,7 @@
   - name: set variable
     ansible.builtin.set_fact:
       client_domain: "{{ inventory_hostname | regex_search('((\w+)\.)*(\w+\.\w+)', '\\3') }}"
-      client_hostname: "{{ inventory_hostname | regex_search('((\w+)\.)*(\w+\.\w+)', '\\2') }}"
+      client_hostname: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\2') }}"
       
   - name: create record at cloudflare
     ansible.builtin.uri:
