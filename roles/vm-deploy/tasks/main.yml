@@ -11,4 +11,4 @@
 #      - "{{ vlan }}{{ id }}"
 
   - import_tasks: 0_create.yml
-  #  - import_tasks: 1_dns.yml
+  - import_tasks: 1_dns.yml
