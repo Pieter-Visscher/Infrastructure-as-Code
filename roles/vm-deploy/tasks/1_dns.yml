@@ -21,7 +21,7 @@
         proxied: false
     register: create_dns_record
     ignore_errors: true
-    when: (inventory_hostname | regex_findall('((\\w+)\\.)*(\\w+\\.\\w+)'))[0] == "pieter.fish"
+    when: (inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)'))[0] == "pieter.fish"
 
   - name: create dns a record
     freeipa.ansible_freeipa.ipadnsrecord:
@@ -32,6 +32,6 @@
       record_value: "{{ subnet }}.{{ vlan }}.{{ id }}"
       zone_name: "{{ ipa.domain }}"
     delegate_to: idm.nauvis.lan
-    when: (inventory_hostname | regex_findall('((\\w+)\\.)*(\\w+\\.\\w+)'))[0] == "pieter.fish"
+    when: (inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)'))[0] == "pieter.fish"
       
 
