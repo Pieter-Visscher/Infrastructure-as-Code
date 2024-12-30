@@ -19,7 +19,7 @@
     ansible.builtin.set_fact:
       client_hostname: "{{ inventory_hostname }}"
       client_domain: "{{ domain }}"
-    when: domain == "nauvis.lan"
+    when: "{{ domain }}" == "nauvis.lan"
       
   - name: create dns a record
     freeipa.ansible_freeipa.ipadnsrecord:
