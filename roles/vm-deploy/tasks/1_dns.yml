@@ -15,7 +15,7 @@
     ignore_errors: true
     when: domain == pieter.fish
 
-  - name: set variables for freeipa:
+  - name: set variables for freeipa
     ansible.builtin.set_fact:
       client_hostname: "{{ inventory_hostname }}"
       
