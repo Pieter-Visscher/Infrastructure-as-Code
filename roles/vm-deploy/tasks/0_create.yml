@@ -66,6 +66,7 @@
     ansible.builtin.debug:
       msg:
         - "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3') | first }}"
+        - "{{ dns_server }}"
   #      - "{{ node_name }}"
   #      - "{{ user }}"
   #      - "{{ domain }}"
