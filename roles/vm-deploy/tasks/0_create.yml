@@ -9,7 +9,7 @@
   - name: set DNS server to nauvis idm if configured
     ansible.builtin.set_fact:
       dns_server: "10.1.50.14"
-    when: (inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3'))[0] == "nauvis.lan"
+    when: (inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3')[0] == "nauvis.lan"
 
   - name: Create a full clone of template Debian
     community.general.proxmox_kvm:
@@ -65,7 +65,7 @@
   - name: debug vars
     ansible.builtin.debug:
       msg:
-        - "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3')) | first }}"
+        - "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3') | first }}"
   #      - "{{ node_name }}"
   #      - "{{ user }}"
   #      - "{{ domain }}"
