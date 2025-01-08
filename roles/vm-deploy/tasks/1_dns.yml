@@ -25,12 +25,11 @@
 
   - name: create dns a record
     freeipa.ansible_freeipa.ipadnsrecord:
-      ipa_server: "idm.nauvis.lan"
       ipaadmin_password: "{{ vaulted_idm_password_nauvis }}"
-      name: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\2') }}"
-      type: "A"
-      record_value: "{{ subnet }}.{{ vlan }}.{{ id }}"
-      zone_name: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3') }}"
+      name: "{{ inventory_hostname | regex_search('(([\\w-]+)\\.)*(\\w+\\.\\w+)', '\\2') }}"
+      a_ip_address: "{{ subnet }}.{{ vlan }}.{{ id }}"
+      zone_name: "{{ inventory_hostname | regex_search('(([\\w-]+)\\.)*(\\w+\\.\\w+)', '\\3') | first }}."
+      create_reverse: yes
     delegate_to: idm.nauvis.lan
     when: (inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3'))[0] == "nauvis.lan"
       
