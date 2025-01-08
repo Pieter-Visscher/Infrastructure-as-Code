@@ -55,6 +55,8 @@
       memory: "{{ memory | default(4096) }}"
       ipconfig: 
         ipconfig0: "ip={{ subnet }}.{{ vlan }}.{{ id }}/{{ cidr }},gw={{ subnet }}.{{ vlan }}.{{ gateway }}"
+      searchdomains: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3'))[0]}}"
+      nameservers: "{{ dns_server }}"
       ciuser: "ansible"
       cipassword: "{{ ansible_password }}"
       sshkeys: "{{ lookup('ansible.builtin.file','/tmp/ssh_keys') }}"
