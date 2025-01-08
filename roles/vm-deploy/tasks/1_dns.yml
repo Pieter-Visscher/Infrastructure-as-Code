@@ -30,7 +30,7 @@
       name: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\2') }}"
       type: "A"
       record_value: "{{ subnet }}.{{ vlan }}.{{ id }}"
-      zone_name: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3')[0] }}"
+      zone_name: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3') }}"
     delegate_to: idm.nauvis.lan
     when: (inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3'))[0] == "nauvis.lan"
       
