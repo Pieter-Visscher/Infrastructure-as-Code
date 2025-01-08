@@ -66,13 +66,13 @@
   - name: debug vars
     ansible.builtin.debug:
       msg:
-        "{{ node_name }}"
-        "{{ user }}"
-        "{{ domain }}"
-        "{{ vlan}}"
-        "{{ id }}"
-        "{{ dns_server }}"
-        "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3')) | first }}"
+        - "{{ node_name }}"
+        - "{{ user }}"
+        - "{{ domain }}"
+        - "{{ vlan}}"
+        - "{{ id }}"
+        - "{{ dns_server }}"
+        - "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3')) | first }}"
 
   - name: set vlan tag on net_0
     community.general.proxmox_nic:
