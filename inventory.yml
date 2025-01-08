@@ -184,19 +184,19 @@ kubernetes:        #
       disk: 50
       memory: 8192
 
-#####################
-#eva:               #
-#  hosts:           #
-#####################
-#
-#    eva--00.?.local:
-#      vlan: 106
-#      id: 10
-#      kubernetes: enabled
-#      role: master
-#      bootstrap: true
-#      release: v1.31
-#      api_endpoint: api.eva.?.local
+####################
+eva:               #
+  hosts:           #
+####################
+
+    eva-00.nauvis.lan:
+      vlan: 106
+      id: 10
+      kubernetes: enabled
+      role: master
+      bootstrap: true
+      release: v1.31
+      api_endpoint: api.eva.nauvis.lan
 
 ####################
 docker:            #
