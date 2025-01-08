@@ -51,7 +51,7 @@ ungrouped:         #
       ipa:
         domain: nauvis.lan
         realm: NAUVIS.LAN
-        admin_password: test
+        admin_password: "{{ vaulted_idm_password_nauvis }}"
         dm_password: test
 
     mfa.pieter.fish:
