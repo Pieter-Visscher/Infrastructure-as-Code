@@ -54,7 +54,7 @@
       memory: "{{ memory | default(4096) }}"
       ipconfig: 
         ipconfig0: "ip={{ subnet }}.{{ vlan }}.{{ id }}/{{ cidr }},gw={{ subnet }}.{{ vlan }}.{{ gateway }}"
-      searchdomains: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3')) | first }}"
+      searchdomains: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3') | first }}"
       nameservers: "{{ dns_server }}"
       ciuser: "ansible"
       cipassword: "{{ ansible_password }}"
