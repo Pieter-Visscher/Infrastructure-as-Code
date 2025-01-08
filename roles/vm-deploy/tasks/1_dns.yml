@@ -26,7 +26,7 @@
   - name: create dns a record
     freeipa.ansible_freeipa.ipadnsrecord:
       ipa_server: "idm.nauvis.lan"
-      ipaadmin_password: "{{ ipa.admin_password }}"
+      ipaadmin_password: "{{ vaulted_idm_password_nauvis }}"
       name: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\2') }}"
       type: "A"
       record_value: "{{ subnet }}.{{ vlan }}.{{ id }}"
