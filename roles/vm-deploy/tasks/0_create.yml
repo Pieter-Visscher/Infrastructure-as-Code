@@ -55,7 +55,7 @@
       ipconfig: 
         ipconfig0: "ip={{ subnet }}.{{ vlan }}.{{ id }}/{{ cidr }},gw={{ subnet }}.{{ vlan }}.{{ gateway }}"
       searchdomains: "{{ inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3') | first }}"
-      nameservers: "{{ dns_server | default(1.0.0.1) }}, 1.1.1.1"
+      nameservers: "{{ dns_server | default(1.0.0.1) }} 1.1.1.1"
       ciuser: "ansible"
       cipassword: "{{ ansible_password }}"
       sshkeys: "{{ lookup('ansible.builtin.file','/tmp/ssh_keys') }}"

@@ -41,6 +41,7 @@ ungrouped:         #
       id: 13
       os: Alma-Linux
       ansible_managed: false
+      dns_server: 10.1.50.14
 
     idm.nauvis.lan:
       vlan: 50
