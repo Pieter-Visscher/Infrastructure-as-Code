@@ -1,6 +1,5 @@
 node_name: prox01
 domain: pieter.fish
-dns_server: 1.1.1.1
 storage: local-zfs
 format: raw
 subnet: 10.1
