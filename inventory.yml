@@ -195,9 +195,16 @@ eva:               #
       id: 10
       kubernetes: enabled
       role: master
-      bootstrap: true
       release: v1.31
+      bootstrap: true
       api_endpoint: api.eva.nauvis.lan
+
+    eva-01.nauvis.lan:
+      vlan: 106
+      id: 11
+      kubernetes: enabled
+      role: master
+      release: v1.31
 
 ####################
 docker:            #
