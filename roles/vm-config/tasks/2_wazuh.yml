@@ -8,7 +8,10 @@
 
 - name: install wazuh agent
   ansible.builtin.command: >
-    "WAZUH_MANAGER=wazuh.nauvis.lan WAZUH_AGENT_NAME={{ inventory_hostname }} dpkg -i /tmp/wazuh-agent_4.10.0-1_amd64.deb"
+    dpkg -i /tmp/wazuh-agent_4.10.0-1_amd64.deb
+  environment:
+    WAZUH_MANAGER: "wazuh.nauvis.lan"
+    WAZUH_AGENT_NAME: "{{ inventory_hostname }}"
   when:
     - ansible_facts['os_family'] == 'Debian'
 
