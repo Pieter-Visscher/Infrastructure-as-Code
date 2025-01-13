@@ -55,7 +55,7 @@ ungrouped:         #
         admin_password: "{{ vaulted_idm_password_nauvis }}"
         dm_password: test
 
-    wazzuh.nauvis.lan:
+    wazuh.nauvis.lan:
       vlan: 50
       id: 15
       memory: 8192
