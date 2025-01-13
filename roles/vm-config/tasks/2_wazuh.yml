@@ -5,6 +5,7 @@
 
 - name: install wazuh on rhel clients
   ansible.builtin.command: "curl -o wazuh-agent-4.10.0-1.x86_64.rpm https://packages.wazuh.com/4.x/yum/wazuh-agent-4.10.0-1.x86_64.rpm && sudo WAZUH_MANAGER='wazuh.nauvis.lan' WAZUH_AGENT_NAME='{{ inventory_hostname }}' rpm -ihv wazuh-agent-4.10.0-1.x86_64.rpm"
+  when:
   - ansible_facts['os_family'] == 'RedHat'
 
 - name: reload systemd services
