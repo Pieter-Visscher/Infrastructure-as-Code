@@ -1,11 +1,17 @@
-- name: install wazuh on debian clients
-  ansible.builtin.command: >
-    wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.10.0-1_amd64.deb &&
-    WAZUH_MANAGER='wazuh.nauvis.lan' WAZUH_AGENT_NAME='{{ inventory_hostname }}' 
-    DEBIAN_FRONTEND=noninteractive dpkg -i ./wazuh-agent_4.10.0-1_amd64.deb
+
+- name: download wazuh agent package
+  ansible.builtin.get_url:
+    url: https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.10.0-1_amd64.deb
+    dest: /tmp/wazuh-agent_4.10.0-1_amd64.deb
   when:
     - ansible_facts['os_family'] == 'Debian'
 
+- name: install wazuh agent
+  ansible.builtin.command: >
+    WAZUH_MANAGER='wazuh.nauvis.lan' WAZUH_AGENT_NAME='{{ inventory_hostname }}'
+    dpkg -i /tmp/wazuh-agent_4.10.0-1_amd64.deb
+  when:
+    - ansible_facts['os_family'] == 'Debian'
 
 - name: install wazuh on rhel clients
   ansible.builtin.command: "curl -o wazuh-agent-4.10.0-1.x86_64.rpm https://packages.wazuh.com/4.x/yum/wazuh-agent-4.10.0-1.x86_64.rpm && WAZUH_MANAGER='wazuh.nauvis.lan' WAZUH_AGENT_NAME='{{ inventory_hostname }}' rpm -ihv wazuh-agent-4.10.0-1.x86_64.rpm"
