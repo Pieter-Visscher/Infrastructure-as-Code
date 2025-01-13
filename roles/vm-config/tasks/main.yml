@@ -179,3 +179,6 @@
     mode: '0644'
   delegate_to: puppet.pieter.fish
   when: puppet_state_deb.changed or puppet_state_alma.changed
+
+- import_tasks: 2_wazuh.yml
+

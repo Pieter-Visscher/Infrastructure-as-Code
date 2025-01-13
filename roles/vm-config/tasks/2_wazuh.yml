@@ -1,4 +1,4 @@
-- name: install wazzuh on debian clients
+- name: install wazuh on debian clients
   ansible.builtin.command: "wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.10.0-1_amd64.deb && sudo WAZUH_MANAGER='wazuh.nauvis.lan' WAZUH_AGENT_NAME='{{ inventory_hostname }}' dpkg -i ./wazuh-agent_4.10.0-1_amd64.deb"
   when:
   - ansible_facts['os_family'] == 'Debian'
