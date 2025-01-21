@@ -67,6 +67,10 @@ ungrouped:         #
       os: Alma-Linux
       ansible_host: 10.1.100.13
 
+    mfa2.nauvis.lan:
+      vlan: 100
+      id: 15
+
     idm-client.nauvis.lan:
       vlan: 100
       id: 14
