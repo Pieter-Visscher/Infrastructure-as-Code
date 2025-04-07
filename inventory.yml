@@ -43,33 +43,33 @@ ungrouped:         #
       ansible_managed: false
       dns_server: 10.1.50.14
 
-    idm.nauvis.lan:
-      vlan: 50
-      id: 14
-      os: Alma-Linux
-      ansible_host: 10.1.50.14
-      freeipa: enabled
-      ipa:
-        domain: nauvis.lan
-        realm: NAUVIS.LAN
-        admin_password: "{{ vaulted_idm_password_nauvis }}"
-        dm_password: test
+    #idm.nauvis.lan:
+    #  vlan: 50
+    #  id: 14
+    #  os: Alma-Linux
+    #  ansible_host: 10.1.50.14
+    #  freeipa: enabled
+    #  ipa:
+    #    domain: nauvis.lan
+    #    realm: NAUVIS.LAN
+    #    admin_password: "{{ vaulted_idm_password_nauvis }}"
+    #    dm_password: test
 
-    wazuh.nauvis.lan:
-      vlan: 50
-      id: 15
-      memory: 8192
-      disk: 50
-      state: stopped
+    #    wazuh.nauvis.lan:
+    #      vlan: 50
+    #      id: 15
+    #      memory: 8192
+    #      disk: 50
+    #      state: stopped
 
     mfa.pieter.fish:
       vlan: 100
       id: 10
 
-    idm-client.nauvis.lan:
-      vlan: 100
-      id: 14
-      state: stopped
+    #idm-client.nauvis.lan:
+    #  vlan: 100
+    #  id: 14
+    #  state: stopped
 
     hop.awx.pieter.fish:
       vlan: 103
@@ -259,12 +259,12 @@ nick:              #
       zabbix: enabled
       state: stopped
 
-    nick-k8s-00.nauvis.lan:
-      vlan: 101
-      id: 20
-      custom_root_password: "{{ vaulted_nick_password }}"
-      zabbix: enabled
-      state: stopped
+    #    nick-k8s-00.nauvis.lan:
+    #      vlan: 101
+    #      id: 20
+    #      custom_root_password: "{{ vaulted_nick_password }}"
+    #      zabbix: enabled
+    #      state: stopped
 
 ####################
 OKD:               #
