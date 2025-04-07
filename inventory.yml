@@ -60,6 +60,7 @@ ungrouped:         #
       id: 15
       memory: 8192
       disk: 50
+      state: stopped
 
     mfa.pieter.fish:
       vlan: 100
@@ -68,6 +69,7 @@ ungrouped:         #
     idm-client.nauvis.lan:
       vlan: 100
       id: 14
+      state: stopped
 
     hop.awx.pieter.fish:
       vlan: 103
@@ -78,6 +80,7 @@ ungrouped:         #
     netbox-psql.pieter.fish:
       vlan: 103
       id: 8
+      state: stopped
 
     puppet.pieter.fish:
       vlan: 105
@@ -85,15 +88,18 @@ ungrouped:         #
       os: Alma-Linux
       memory: 8192
       cpu: 4
+      state: stopped
 
     puppet-client.pieter.fish:
       vlan: 105
       id: 20
       os: Alma-Linux
+      state: stopped
 
     rundeck.pieter.fish:
       vlan: 50
       id: 17
+      state: stopped
 
 ####################
 zabbix:            #
@@ -189,26 +195,26 @@ kubernetes:        #
       disk: 50
       memory: 8192
 
-####################
-eva:               #
-  hosts:           #
-####################
-
-    eva-00.nauvis.lan:
-      vlan: 106
-      id: 10
-      kubernetes: enabled
-      role: master
-      release: v1.31
-      bootstrap: true
-      api_endpoint: api.eva.nauvis.lan
-
-    eva-01.nauvis.lan:
-      vlan: 106
-      id: 11
-      kubernetes: enabled
-      role: master
-      release: v1.31
+      #####################
+      #eva:               #
+      #  hosts:           #
+      #####################
+      #
+      #    eva-00.nauvis.lan:
+      #      vlan: 106
+      #      id: 10
+      #      kubernetes: enabled
+      #      role: master
+      #      release: v1.31
+      #      bootstrap: true
+      #      api_endpoint: api.eva.nauvis.lan
+      #
+      #    eva-01.nauvis.lan:
+      #      vlan: 106
+      #      id: 11
+      #      kubernetes: enabled
+      #      role: master
+      #      release: v1.31
 
 ####################
 docker:            #
@@ -231,12 +237,14 @@ nick:              #
       id: 11
       custom_root_password: "{{ vaulted_nick_password }}"
       zabbix: enabled
+      state: stopped
 
     NicksWebServer.pieter.fish:
       vlan: 101
       id: 12
       custom_root_password: "{{ vaulted_nick_password }}"
       zabbix: enabled
+      state: stopped
       
     nick-mail.pieter.fish:
       vlan: 101
@@ -249,12 +257,14 @@ nick:              #
       id: 14
       custom_root_password: "{{ vaulted_nick_password }}"
       zabbix: enabled
+      state: stopped
 
     nick-k8s-00.nauvis.lan:
       vlan: 101
       id: 20
       custom_root_password: "{{ vaulted_nick_password }}"
       zabbix: enabled
+      state: stopped
 
 ####################
 OKD:               #
