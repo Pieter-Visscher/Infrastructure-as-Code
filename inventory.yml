@@ -63,13 +63,7 @@ ungrouped:         #
 
     mfa.pieter.fish:
       vlan: 100
-      id: 13
-      os: Alma-Linux
-      ansible_host: 10.1.100.13
-
-    mfa2.nauvis.lan:
-      vlan: 100
-      id: 15
+      id: 10
 
     idm-client.nauvis.lan:
       vlan: 100
