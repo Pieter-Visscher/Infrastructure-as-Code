@@ -80,7 +80,6 @@ ungrouped:         #
     netbox-psql.pieter.fish:
       vlan: 103
       id: 8
-      state: stopped
 
     puppet.pieter.fish:
       vlan: 105
