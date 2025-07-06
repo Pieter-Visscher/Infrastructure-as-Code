@@ -43,33 +43,11 @@ ungrouped:         #
       ansible_managed: false
       dns_server: 10.1.50.14
 
-    #idm.nauvis.lan:
-    #  vlan: 50
-    #  id: 14
-    #  os: Alma-Linux
-    #  ansible_host: 10.1.50.14
-    #  freeipa: enabled
-    #  ipa:
-    #    domain: nauvis.lan
-    #    realm: NAUVIS.LAN
-    #    admin_password: "{{ vaulted_idm_password_nauvis }}"
-    #    dm_password: test
-
-    wazuh.nauvis.lan:
+    idm.nauvis.lan:
       vlan: 50
-      id: 15
-      memory: 8192
-      disk: 50
-      #  state: stopped
-
-    mfa.pieter.fish:
-      vlan: 100
-      id: 10
-
-    #idm-client.nauvis.lan:
-    #  vlan: 100
-    #  id: 14
-    #  state: stopped
+      id: 14
+      os: Alma-Linux
+      ansible_host: 10.1.50.14
 
     hop.awx.pieter.fish:
       vlan: 103
@@ -77,28 +55,10 @@ ungrouped:         #
       os: Alma-Linux
       ansible_managed: false
 
-    netbox-psql.pieter.fish:
-      vlan: 103
-      id: 8
-
-    puppet.pieter.fish:
-      vlan: 105
-      id: 10
-      os: Alma-Linux
-      memory: 8192
-      cpu: 4
-      state: stopped
-
-    puppet-client.pieter.fish:
-      vlan: 105
-      id: 20
-      os: Alma-Linux
-      state: stopped
-
-    rundeck.pieter.fish:
-      vlan: 50
-      id: 17
-      state: stopped
+    nfs.nauvis.lan:
+      vlan: 106
+      id: 5
+      disk: 50
 
 ####################
 zabbix:            #
@@ -194,27 +154,6 @@ kubernetes:        #
       disk: 50
       memory: 8192
 
-      #####################
-      #eva:               #
-      #  hosts:           #
-      #####################
-      #
-      #    eva-00.nauvis.lan:
-      #      vlan: 106
-      #      id: 10
-      #      kubernetes: enabled
-      #      role: master
-      #      release: v1.31
-      #      bootstrap: true
-      #      api_endpoint: api.eva.nauvis.lan
-      #
-      #    eva-01.nauvis.lan:
-      #      vlan: 106
-      #      id: 11
-      #      kubernetes: enabled
-      #      role: master
-      #      release: v1.31
-
 ####################
 docker:            #
   hosts:           #
@@ -258,70 +197,3 @@ nick:              #
       zabbix: enabled
       state: stopped
 
-    #    nick-k8s-00.nauvis.lan:
-    #      vlan: 101
-    #      id: 20
-    #      custom_root_password: "{{ vaulted_nick_password }}"
-    #      zabbix: enabled
-    #      state: stopped
-
-####################
-OKD:               #
-  hosts:           #
-####################
-
-    bootstrap.okd.pieter.fish:
-      vlan: 104
-      id: 2
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    services.okd.pieter.fish:
-      vlan: 104
-      id: 3
-      disk: 120
-      memory: 16384
-      state: stopped
-
-    master00.okd.pieter.fish:
-      vlan: 104
-      id: 20
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    master01.okd.pieter.fish:
-      vlan: 104
-      id: 21
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    master02.okd.pieter.fish:
-      vlan: 104
-      id: 22
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    worker00.okd.pieter.fish:
-      vlan: 104
-      id: 30
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    worker01.okd.pieter.fish:
-      vlan: 104
-      id: 31
-      disk: 120
-      memory: 16384 
-      state: stopped
-
-    worker02.okd.pieter.fish:
-      vlan: 104
-      id: 32
-      disk: 120
-      memory: 16384 
-      state: stopped
