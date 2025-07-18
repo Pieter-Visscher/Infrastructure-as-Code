@@ -51,25 +51,6 @@
   - sshConfigState.changed
   - ansible_facts['os_family'] == 'Debian'
 
-- name: Add Puppet repository for Debian
-  ansible.builtin.apt:
-    deb: "https://apt.puppet.com/puppet7-release-{{ ansible_distribution_release }}.deb"
-  when: ansible_facts['os_family'] == "Debian"
-  register: puppet_state_deb
-
-- name: add gpg key
-  ansible.builtin.rpm_key:
-    state: present
-    key: "https://yum.puppet.com/RPM-GPG-KEY-puppet"
-  when: ansible_facts['os_family'] == 'RedHat'
-
-- name: add puppet repository on alma
-  ansible.builtin.dnf:
-    name: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.noarch.rpm"
-    state: present
-  when: ansible_facts['os_family'] == 'RedHat'
-  register: puppet_state_alma
-
 - name: restart sshd
   ansible.builtin.systemd_service:
     name: sshd.service
@@ -97,7 +78,6 @@
     - qemu-guest-agent
     - vim
     - wget
-    - puppet-agent
   when: ansible_facts['os_family'] == 'Debian'
 
 - name: update cache dnf
@@ -131,53 +111,13 @@
     - wget
   when: ansible_facts['os_family'] == 'RedHat'
 
-#- name: set puppet config
-#  ansible.builtin.blockinfile:
-#    path: /etc/puppetlabs/puppet/puppet.conf 
-#    block: |
-#      [main]
-#      server = puppet.pieter.fish
-
 - name: enable qemu guest agent 
   ansible.builtin.systemd_service:
     name: qemu-guest-agent.service
     state: started 
     enabled: true
 
-#- name: enable pupppet agent
-#  ansible.builtin.systemd_service:
-#    name: puppet.service
-#    enabled: true
-#    state: restarted
-
 - name: reboot
   ansible.builtin.reboot:
     reboot_timeout: 300
   when: cloudInitConfigState.changed
-
-#- name: wait for puppet agent to notify puppet server
-#  ansible.builtin.wait_for:
-#    timeout: 30
-#  when: puppet_state_deb.changed or puppet_state_alma.changed
-
-#- name: Store the original ansible_host
-#  set_fact:
-#    original_ansible_host: "{{ ansible_host }}"
-
-#- name: accept CSR on puppet server
-#  ansible.builtin.command: /opt/puppetlabs/bin/puppetserver ca sign --certname "{{ original_ansible_host }}"
-#  when: puppet_state_deb.changed or puppet_state_alma.changed
-#  delegate_to: puppet.pieter.fish
-
-#- name: create yaml in hiera
-#  ansible.builtin.file:
-#    path: "/etc/puppetlabs/code/environments/production/data/nodes/{{ original_ansible_host }}.yaml"
-#    state: touch
-#    owner: root
-#    group: root
-#    mode: '0644'
-#  delegate_to: puppet.pieter.fish
-#  when: puppet_state_deb.changed or puppet_state_alma.changed
-
-#- import_tasks: 2_wazuh.yml
-

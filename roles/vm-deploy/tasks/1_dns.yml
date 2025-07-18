@@ -32,5 +32,3 @@
       create_reverse: yes
     delegate_to: idm.nauvis.lan
     when: (inventory_hostname | regex_search('((\\w+)\\.)*(\\w+\\.\\w+)', '\\3'))[0] == "nauvis.lan"
-      
-
