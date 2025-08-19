@@ -60,6 +60,10 @@ ungrouped:         #
       id: 5
       disk: 50
 
+  roon.nauvis.lan:
+      vlan: 100
+      id: 14
+
 ####################
 zabbix:            #
   hosts:           #
@@ -118,6 +122,7 @@ proxies:           #
       vlan: 103
       id: 14
       zabbix: enabled
+      state: stopped
 
 ####################
 kubernetes:        #
@@ -131,10 +136,12 @@ kubernetes:        #
     kube-master-01.pieter.fish:
       vlan: 103
       id: 11
+      state: stopped
 
     kube-master-02.pieter.fish:
       vlan: 103
       id: 12
+      state: stopped
 
     kube-worker-00.pieter.fish:
       vlan: 103
@@ -189,6 +196,7 @@ nick:              #
       id: 13
       custom_root_password: "{{ vaulted_nick_password }}"
       zabbix: enabled
+      state: stopped
 
     nick-mail-test.pieter.fish:
       vlan: 101
