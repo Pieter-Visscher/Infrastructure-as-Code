@@ -136,12 +136,10 @@ kubernetes:        #
     kube-master-01.pieter.fish:
       vlan: 103
       id: 11
-      state: stopped
 
     kube-master-02.pieter.fish:
       vlan: 103
       id: 12
-      state: stopped
 
     kube-worker-00.pieter.fish:
       vlan: 103
