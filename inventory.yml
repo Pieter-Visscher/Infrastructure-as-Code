@@ -60,7 +60,7 @@ ungrouped:         #
       id: 5
       disk: 50
 
-  roon.nauvis.lan:
+    roon.nauvis.lan:
       vlan: 100
       id: 14
 
